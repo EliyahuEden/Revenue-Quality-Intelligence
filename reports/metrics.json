@@ -1,0 +1,14 @@
+{
+  "gross_gbp": 19084294.99,
+  "cancellation_gbp": 545529.58,
+  "net_gbp": 18538765.41,
+  "orders": 38700,
+  "known_buyers": 5824,
+  "anonymous_gross_share": 0.12956198755550677,
+  "top_decile_gross_share": 0.6345701893963168,
+  "repeat_90d_rate": 0.41268044155108974,
+  "repeat_eligible": 3533,
+  "repeat_n": 1458,
+  "jan_nov_net_growth": 0.021917694966144152,
+  "core_lines_complete": 1007540
+}

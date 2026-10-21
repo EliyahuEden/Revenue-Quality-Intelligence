@@ -1,0 +1,210 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "source_row_count",
+      "value": 1067371.0,
+      "expected": 1067371,
+      "passed": true
+    },
+    {
+      "name": "classification_conserves_rows",
+      "value": 0.0,
+      "expected": 0,
+      "passed": true
+    },
+    {
+      "name": "line_key_unique",
+      "value": 0.0,
+      "expected": 0,
+      "passed": true
+    },
+    {
+      "name": "overlap_rows_verified_by_multiset",
+      "value": 0.0,
+      "expected": 0,
+      "passed": true
+    },
+    {
+      "name": "no_invalid_source_timestamps",
+      "value": 0.0,
+      "expected": 0,
+      "passed": true
+    },
+    {
+      "name": "source_quantity_cast_loss",
+      "value": 0.0,
+      "expected": 0,
+      "passed": true
+    },
+    {
+      "name": "source_price_cast_loss",
+      "value": 0.0,
+      "expected": 0,
+      "passed": true
+    },
+    {
+      "name": "fact_reconciles_core",
+      "value": 0.0,
+      "expected": 0,
+      "passed": true
+    },
+    {
+      "name": "fact_grain_unique",
+      "value": 0.0,
+      "expected": 0,
+      "passed": true
+    },
+    {
+      "name": "dim_customer_referential_integrity",
+      "value": 0.0,
+      "expected": 0,
+      "passed": true
+    },
+    {
+      "name": "dim_product_referential_integrity",
+      "value": 0.0,
+      "expected": 0,
+      "passed": true
+    },
+    {
+      "name": "dim_country_referential_integrity",
+      "value": 0.0,
+      "expected": 0,
+      "passed": true
+    },
+    {
+      "name": "dim_date_referential_integrity",
+      "value": 0.0,
+      "expected": 0,
+      "passed": true
+    },
+    {
+      "name": "sale_sign_valid",
+      "value": 0.0,
+      "expected": 0,
+      "passed": true
+    },
+    {
+      "name": "cancellation_sign_valid",
+      "value": 0.0,
+      "expected": 0,
+      "passed": true
+    },
+    {
+      "name": "order_amount_reconciles",
+      "value": 0.0,
+      "expected": 0,
+      "passed": true
+    },
+    {
+      "name": "invoice_has_single_customer_country_date",
+      "value": 0.0,
+      "expected": 0,
+      "passed": true
+    },
+    {
+      "name": "cohort_rates_valid",
+      "value": 0.0,
+      "expected": 0,
+      "passed": true
+    },
+    {
+      "name": "cohort_age_zero_equals_size",
+      "value": 0.0,
+      "expected": 0,
+      "passed": true
+    },
+    {
+      "name": "future_cohort_cells_absent",
+      "value": 0.0,
+      "expected": 0,
+      "passed": true
+    },
+    {
+      "name": "no_unknown_lifecycle",
+      "value": 0.0,
+      "expected": 0,
+      "passed": true
+    },
+    {
+      "name": "dense_calendar_country_grain",
+      "value": 0.0,
+      "expected": 0,
+      "passed": true
+    },
+    {
+      "name": "monthly_bridge_agrees",
+      "value": 0.0,
+      "expected": 0,
+      "passed": true
+    },
+    {
+      "name": "raw_financial_bridge",
+      "value": 0.0,
+      "expected": 0,
+      "passed": true
+    },
+    {
+      "name": "source_vs_typed_pence",
+      "value": 0.0,
+      "expected": 0,
+      "passed": true
+    }
+  ],
+  "anomalies": {
+    "invoice_timestamp_variants": 82,
+    "superseded_overlap_rows": 22523,
+    "max_invoice_timestamp_span_minutes": 9,
+    "missing_customers": 243007,
+    "missing_descriptions": 4382,
+    "repeated_extra_rows": 12133,
+    "unknown_countries": 0,
+    "customer_country_changes": 14,
+    "source_date_range": [
+      "2009-12-01 07:45:00",
+      "2011-12-09 12:50:00"
+    ],
+    "price_range": [
+      "-53594.3600",
+      "38970.0000"
+    ],
+    "quantity_range": [
+      -80995,
+      80995
+    ],
+    "stock_codes": 5131
+  },
+  "classification": [
+    {
+      "line_status": "sale",
+      "row_count": 1014945,
+      "signed_gbp": 19699784.97
+    },
+    {
+      "line_status": "overlap_partition",
+      "row_count": 22523,
+      "signed_gbp": 377488.45
+    },
+    {
+      "line_status": "cancellation",
+      "row_count": 17973,
+      "signed_gbp": -719656.34
+    },
+    {
+      "line_status": "zero_price",
+      "row_count": 6024,
+      "signed_gbp": 0.0
+    },
+    {
+      "line_status": "non_merchandise",
+      "row_count": 5901,
+      "signed_gbp": 88309.61
+    },
+    {
+      "line_status": "negative_price",
+      "row_count": 5,
+      "signed_gbp": -158676.14
+    }
+  ]
+}

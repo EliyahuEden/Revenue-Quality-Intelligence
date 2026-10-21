@@ -1,0 +1,31 @@
+{
+  "name": "Revenue Quality | Editorial",
+  "dataColors": [
+    "#008C82",
+    "#526AD4",
+    "#D86B4D",
+    "#91C9C3",
+    "#B4BDEA",
+    "#E9BEA9"
+  ],
+  "background": "#F3F5FA",
+  "foreground": "#23344D",
+  "tableAccent": "#008C82",
+  "textClasses": {
+    "title": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 14,
+      "color": "#23344D"
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "fontSize": 10,
+      "color": "#64748B"
+    },
+    "callout": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 36,
+      "color": "#23344D"
+    }
+  }
+}

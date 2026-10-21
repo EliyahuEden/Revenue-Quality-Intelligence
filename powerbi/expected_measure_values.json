@@ -1,0 +1,56 @@
+{
+  "all|all": {
+    "gross": 19084294.99,
+    "cancellations": 545529.58,
+    "net": 18538765.41,
+    "orders": 38700
+  },
+  "all|United Kingdom": {
+    "gross": 16282882.08,
+    "cancellations": 462243.87,
+    "net": 15820638.21,
+    "orders": 35440
+  },
+  "all|Germany": {
+    "gross": 376823.5,
+    "cancellations": 8536.02,
+    "net": 368287.48,
+    "orders": 736
+  },
+  "2010|all": {
+    "gross": 9405676.17,
+    "cancellations": 238978.74,
+    "net": 9166697.43,
+    "orders": 19627
+  },
+  "2010|United Kingdom": {
+    "gross": 8085733.2,
+    "cancellations": 186391.64,
+    "net": 7899341.56,
+    "orders": 18140
+  },
+  "2010|Germany": {
+    "gross": 182522.07,
+    "cancellations": 4300.07,
+    "net": 178222.0,
+    "orders": 322
+  },
+  "2011|all": {
+    "gross": 8877678.99,
+    "cancellations": 286989.56,
+    "net": 8590689.43,
+    "orders": 17407
+  },
+  "2011|United Kingdom": {
+    "gross": 7467530.34,
+    "cancellations": 258511.09,
+    "net": 7209019.25,
+    "orders": 15717
+  },
+  "2011|Germany": {
+    "gross": 185266.58,
+    "cancellations": 3921.72,
+    "net": 181344.86,
+    "orders": 397
+  }
+}

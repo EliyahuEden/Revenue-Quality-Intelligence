@@ -1,0 +1,20 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.env
+data/raw/
+data/warehouse/
+data/exports/
+*.duckdb*
+*.log
+
+# Disposable local archives and OS metadata
+*.zip
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Power BI local caches; report source stays in Git
+**/.pbi/
+**/localSettings.json
+**/cache.abf

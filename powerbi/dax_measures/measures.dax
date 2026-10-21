@@ -1,0 +1,91 @@
+// Create each expression separately as an explicit measure. Do not paste this file as one formula.
+// Base finance measures enforce complete periods and respect product/country/date/customer filters.
+Gross Sales GBP =
+CALCULATE ( SUM ( fact_invoice_line[amount_pence] ) / 100,
+    fact_invoice_line[line_status] = "sale",
+    KEEPFILTERS ( dim_date[is_complete_period] = TRUE () ) )
+
+Cancellation Postings GBP =
+-CALCULATE ( SUM ( fact_invoice_line[amount_pence] ) / 100,
+    fact_invoice_line[line_status] = "cancellation",
+    KEEPFILTERS ( dim_date[is_complete_period] = TRUE () ) )
+
+Net Merchandise GBP = [Gross Sales GBP] - [Cancellation Postings GBP]
+
+Cancellation Value Ratio = DIVIDE ( [Cancellation Postings GBP], [Gross Sales GBP] )
+
+Sale Invoices =
+CALCULATE ( DISTINCTCOUNT ( fact_invoice_line[invoice_no] ),
+    fact_invoice_line[line_status] = "sale",
+    KEEPFILTERS ( dim_date[is_complete_period] = TRUE () ) )
+
+Gross AOV GBP = DIVIDE ( [Gross Sales GBP], [Sale Invoices] )
+
+Known Buyers =
+CALCULATE ( DISTINCTCOUNT ( fact_invoice_line[customer_key] ),
+    fact_invoice_line[customer_key] <> "UNKNOWN", fact_invoice_line[line_status] = "sale",
+    KEEPFILTERS ( dim_date[is_complete_period] = TRUE () ) )
+
+Anonymous Gross GBP =
+CALCULATE ( [Gross Sales GBP], REMOVEFILTERS ( dim_customer ),
+    fact_invoice_line[customer_key] = "UNKNOWN" )
+
+Anonymous Gross Share = DIVIDE ( [Anonymous Gross GBP], CALCULATE ( [Gross Sales GBP], REMOVEFILTERS ( dim_customer ) ) )
+
+Net YTD GBP = CALCULATE ( [Net Merchandise GBP], DATESYTD ( dim_date[date_key] ) )
+
+// Use only at single-month grain: incomplete prior windows otherwise create misleading comparisons.
+Net Previous Year Month GBP =
+IF ( HASONEVALUE ( dim_date[month_start] ),
+    CALCULATE ( [Net Merchandise GBP], DATEADD ( dim_date[date_key], -1, YEAR ) ) )
+
+Net YoY Month Growth =
+VAR Prior = [Net Previous Year Month GBP]
+RETURN IF ( NOT ISBLANK ( Prior ) && Prior > 0,
+    DIVIDE ( [Net Merchandise GBP] - Prior, Prior ) )
+
+// Fixed customer snapshot: executive transaction-date filters intentionally do not change these.
+Snapshot Customers = COUNTROWS ( customer_segments )
+
+Snapshot Gross GBP = SUM ( customer_segments[gross_pence] ) / 100
+
+Mature 90d Customers =
+CALCULATE ( COUNTROWS ( customer_lifecycle ),
+    customer_lifecycle[after_warmup] = TRUE (),
+    customer_lifecycle[fully_observed_90d] = TRUE () )
+
+Mature 90d Repeat Customers =
+CALCULATE ( COUNTROWS ( customer_lifecycle ),
+    customer_lifecycle[after_warmup] = TRUE (),
+    customer_lifecycle[fully_observed_90d] = TRUE (),
+    FILTER ( customer_lifecycle,
+        NOT ISBLANK ( customer_lifecycle[days_to_second_order] )
+        && customer_lifecycle[days_to_second_order] <= 90 ) )
+
+Repeat 90d Rate = DIVIDE ( [Mature 90d Repeat Customers], [Mature 90d Customers] )
+
+// Cohort table is disconnected. Age totals are deliberately blank to prevent double counting buyers.
+Cohort Active Buyers =
+IF ( HASONEVALUE ( cohort_retention[month_age] ), SUM ( cohort_retention[active_customers] ) )
+
+Cohort Eligible Buyers =
+IF ( HASONEVALUE ( cohort_retention[month_age] ),
+    SUMX ( VALUES ( cohort_retention[cohort_month] ),
+        CALCULATE ( MAX ( cohort_retention[cohort_size] ) ) ) )
+
+Purchase Retention Rate = DIVIDE ( [Cohort Active Buyers], [Cohort Eligible Buyers] )
+
+Product Gross Share =
+DIVIDE ( [Gross Sales GBP], CALCULATE ( [Gross Sales GBP], REMOVEFILTERS ( dim_product ) ) )
+
+Product Revenue Rank =
+RANKX ( ALLSELECTED ( dim_product ), [Gross Sales GBP], , DESC, DENSE )
+
+Net Deduplicated Scenario GBP =
+CALCULATE ( SUM ( fact_invoice_line[amount_pence] ) / 100,
+    fact_invoice_line[duplicate_ordinal] = 1,
+    KEEPFILTERS ( dim_date[is_complete_period] = TRUE () ) )
+
+Duplicate Sensitivity GBP = [Net Merchandise GBP] - [Net Deduplicated Scenario GBP]
+
+Selected Market Title = "Merchandise value | " & SELECTEDVALUE ( dim_country[country_key], "Multiple / all markets" )

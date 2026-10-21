@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "title": "Gross sales need a cancellation bridge",
+    "observed": "Complete-month merchandise gross is £19,084,294.99; cancellation postings total £545,529.58 (2.86% of gross), leaving £18,538,765.41 net merchandise value.",
+    "source": "01_executive_bridge; 21_quality_reconciliation",
+    "decision": "Finance should review the gross-to-net bridge monthly and reconcile exclusions against the ledger.",
+    "hypothesis": "Wholesale order corrections or reversals may explain part of the cancellation value.",
+    "limitation": "Cancellation posting dates do not establish the original sale or physical returns. Net merchandise value is not accounting-recognized revenue or profit.",
+    "success": "Reconciliation difference in pence; cancellation-value ratio and documented exceptions."
+  },
+  {
+    "id": 2,
+    "title": "Comparable periods change the growth discussion",
+    "observed": "January–November net merchandise value changes from £8,406,439.65 in 2010 to £8,590,689.43 in 2011 (+2.19%). Orders change from 18,077 to 17,407.",
+    "source": "16_comparable_year_bridge; 02_monthly_growth",
+    "decision": "Use equal January–November windows for the management growth comparison.",
+    "hypothesis": "Order mix, volume and cancellation timing may contribute.",
+    "limitation": "Only two historical annual cycles; no inflation adjustment, causal attribution or full December 2011.",
+    "success": "Comparable-window net value, orders and AOV, reviewed together."
+  },
+  {
+    "id": 3,
+    "title": "Unidentified transactions limit CRM coverage",
+    "observed": "Anonymous merchandise sales contribute £2,472,599.19, or 12.96% of gross sales, while remaining included in finance KPIs.",
+    "source": "13_anonymous_coverage",
+    "decision": "Audit checkout/customer capture and keep an explicit unknown bucket in financial reports.",
+    "hypothesis": "Guest orders or operational data capture practices may explain missing IDs.",
+    "limitation": "Missingness may be non-random. Known-customer retention cannot describe anonymous buyers.",
+    "success": "Share of gross sales linked to a stable customer ID; no retrospective fabricated IDs."
+  },
+  {
+    "id": 4,
+    "title": "Known-customer revenue is concentrated",
+    "observed": "The top 10% of 5,824 known buyers by observed gross sales generate 63.46% of known-customer gross sales.",
+    "source": "05_customer_pareto",
+    "decision": "Prioritize a review of high-value account continuity and service needs.",
+    "hypothesis": "The publisher notes many wholesale customers, which may create a long value tail.",
+    "limitation": "Ranked over the full observed period; this is a retrospective concentration measure and not a future targeting score.",
+    "success": "Revenue concentration and repeat-order continuity among approved account segments."
+  },
+  {
+    "id": 5,
+    "title": "Repeat purchase has an explicit observation window",
+    "observed": "1,458 of 3,533 eligible known buyers place a second order within 90 days (41.27%); eligibility begins March 2010 and requires 90 fully observed days before December 2011.",
+    "source": "07_repeat_90d; 22_cohort_maturity",
+    "decision": "Use the mature 90-day rate as a CRM baseline; design a randomized outreach test only after obtaining consent and treatment data.",
+    "hypothesis": "Ordering cadence, customer type and assortment needs may explain non-repeat purchases.",
+    "limitation": "First observed purchase may not be first-ever purchase. Warmup reduces but cannot remove left censoring. Non-repeat is not contractual churn.",
+    "success": "Pre-registered 90-day repeat rate, revenue/customer and cancellation guardrail in a future randomized test."
+  },
+  {
+    "id": 6,
+    "title": "First-basket breadth is a useful research hypothesis",
+    "observed": "Month-standardized 90-day repeat-rate difference for 6+ first-order SKUs versus 1–5 SKUs is +11.33 percentage points (19 common cohorts). Descriptive 95% interval: +6.79 to +15.88 points.",
+    "source": "17_first_basket_repeat; repeat_purchase_statistics.csv; statistical_method.json",
+    "decision": "Research whether basket breadth identifies different customer needs before testing recommendations or bundles.",
+    "hypothesis": "Wholesale intent or existing familiarity may influence both breadth and repeat buying.",
+    "limitation": "Observational association, adjusted only for calendar cohort; not evidence that increasing basket breadth causes retention.",
+    "success": "Future randomized bundle experiment: repeat purchase, basket value and cancellation guardrails."
+  },
+  {
+    "id": 7,
+    "title": "Dormancy contains distinct commercial cases",
+    "observed": "1,263 buyers are single-purchase dormant; 536 are established dormant (at least five orders, last purchase over 90 days before cutoff), with £1,727,506.63 historical gross purchases.",
+    "source": "06_segments",
+    "decision": "Separate first-purchase onboarding research from established-account reactivation review.",
+    "hypothesis": "Established buyers may pause seasonally; single purchasers may have one-time needs.",
+    "limitation": "Segments are an as-of snapshot at 1 December 2011. Historical purchases are not recoverable revenue or forecast exposure.",
+    "success": "Subsequent repeat rate by preassigned segment in newly collected data."
+  },
+  {
+    "id": 8,
+    "title": "Geography has a dominant base market",
+    "observed": "The United Kingdom contributes £16,282,882.08, or 85.32% of gross merchandise sales, across 35,440 sale invoices.",
+    "source": "04_country_mix",
+    "decision": "Protect service quality in the base market; evaluate expansion with market-specific commercial costs.",
+    "hypothesis": "Retailer location and historical distribution relationships may drive this mix.",
+    "limitation": "No acquisition, delivery costs or market-size denominator; this cannot establish geographic profitability or addressable market.",
+    "success": "Market gross/net value and cancellation ratio, with delivery and margin data added before investment."
+  },
+  {
+    "id": 9,
+    "title": "Separate proven partition overlap from ambiguous line repeats",
+    "observed": "The two sheets repeat 22,523 rows over 1–9 December 2010; an eight-field multiset check verifies equal records and multiplicities, so the later partition is authoritative. Separately, removing 11,511 repeated core lines within authoritative partitions changes net merchandise value by £52,895.50 as a sensitivity.",
+    "source": "14_duplicate_sensitivity",
+    "decision": "Request source-system line identifiers and retain the current auditable baseline until duplication is confirmed.",
+    "hypothesis": "Repeated identical lines could be duplicate ingestion or valid repeated invoice lines.",
+    "limitation": "Partition overlap is verified and excluded from core. Remaining within-partition repeats lack a trustworthy line key; removing those is a scenario, not a verified correction.",
+    "success": "Duplicate key failures on future loads; finance reconciliation under an approved policy."
+  },
+  {
+    "id": 10,
+    "title": "Cancellation history is incomplete evidence",
+    "observed": "2,224 identified cancellation lines have no earlier sale with the same customer, SKU and price in the observed history, totaling £44,099.29.",
+    "source": "12_cancellation_history_coverage",
+    "decision": "Investigate unmatched cancellations and obtain original-invoice references before calculating matched return rates.",
+    "hypothesis": "Pre-history sales, corrections, price changes or identifier errors may explain gaps.",
+    "limitation": "An earlier matching-price sale also does not prove a match; quantities and original documents are not allocated.",
+    "success": "Share of cancellation value linked to a verified original invoice and approved reason."
+  }
+]

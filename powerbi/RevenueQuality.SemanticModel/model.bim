@@ -1,0 +1,1128 @@
+{
+  "name": "RevenueQuality",
+  "compatibilityLevel": 1567,
+  "model": {
+    "culture": "en-GB",
+    "sourceQueryCulture": "en-GB",
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "discourageImplicitMeasures": true,
+    "tables": [
+      {
+        "name": "dim_date",
+        "columns": [
+          {
+            "name": "date_key",
+            "dataType": "dateTime",
+            "sourceColumn": "date_key",
+            "summarizeBy": "none",
+            "lineageTag": "8c3e4774-6503-5915-b04d-690cec95bf04",
+            "formatString": "dd MMM yyyy",
+            "isKey": true
+          },
+          {
+            "name": "calendar_year",
+            "dataType": "int64",
+            "sourceColumn": "calendar_year",
+            "summarizeBy": "none",
+            "lineageTag": "9d834c01-d6f8-5853-a1e4-012847f87909"
+          },
+          {
+            "name": "month_number",
+            "dataType": "int64",
+            "sourceColumn": "month_number",
+            "summarizeBy": "none",
+            "lineageTag": "cbcc5eec-ef29-5bae-bdef-2377c3f82fcd"
+          },
+          {
+            "name": "month_start",
+            "dataType": "dateTime",
+            "sourceColumn": "month_start",
+            "summarizeBy": "none",
+            "lineageTag": "264dddc4-461c-5bde-887b-3cc389110f02",
+            "formatString": "MMM yyyy"
+          },
+          {
+            "name": "day_of_week",
+            "dataType": "int64",
+            "sourceColumn": "day_of_week",
+            "summarizeBy": "none",
+            "lineageTag": "bdb844e9-c499-5ebe-ac1b-d9cdf7746a1e"
+          },
+          {
+            "name": "day_name",
+            "dataType": "string",
+            "sourceColumn": "day_name",
+            "summarizeBy": "none",
+            "lineageTag": "2e339f1e-b9bb-5483-b56b-425c2e9c2bc9"
+          },
+          {
+            "name": "is_complete_period",
+            "dataType": "boolean",
+            "sourceColumn": "is_complete_period",
+            "summarizeBy": "none",
+            "lineageTag": "ef3b4a40-a440-5dc0-a54b-a276f1dedc0e"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "dim_date",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"\\dim_date.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {",
+                "        {\"date_key\", type date},",
+                "        {\"calendar_year\", Int64.Type},",
+                "        {\"month_number\", Int64.Type},",
+                "        {\"month_start\", type date},",
+                "        {\"day_of_week\", Int64.Type},",
+                "        {\"day_name\", type text},",
+                "        {\"is_complete_period\", type logical}",
+                "    }, \"en-GB\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ],
+        "lineageTag": "e6e0a93c-9650-5ee3-b43d-9692362c56a3",
+        "dataCategory": "Time"
+      },
+      {
+        "name": "dim_customer",
+        "columns": [
+          {
+            "name": "customer_key",
+            "dataType": "string",
+            "sourceColumn": "customer_key",
+            "summarizeBy": "none",
+            "lineageTag": "5df107a2-a0f1-5814-b72c-68ccc3c3b8ec"
+          },
+          {
+            "name": "first_seen",
+            "dataType": "dateTime",
+            "sourceColumn": "first_seen",
+            "summarizeBy": "none",
+            "lineageTag": "c4671a98-057b-553d-9ae7-4892c05bca90",
+            "formatString": "dd MMM yyyy"
+          },
+          {
+            "name": "observed_country_count",
+            "dataType": "int64",
+            "sourceColumn": "observed_country_count",
+            "summarizeBy": "none",
+            "lineageTag": "afd98d52-5bba-5130-a787-915645132c5b"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "dim_customer",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"\\dim_customer.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {",
+                "        {\"customer_key\", type text},",
+                "        {\"first_seen\", type date},",
+                "        {\"observed_country_count\", Int64.Type}",
+                "    }, \"en-GB\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ],
+        "lineageTag": "fc5dc241-c265-55d2-8450-711a97276df7"
+      },
+      {
+        "name": "dim_product",
+        "columns": [
+          {
+            "name": "product_key",
+            "dataType": "string",
+            "sourceColumn": "product_key",
+            "summarizeBy": "none",
+            "lineageTag": "9d5ddd07-b0a0-53d6-84f6-9ed2a8c28b09"
+          },
+          {
+            "name": "product_name",
+            "dataType": "string",
+            "sourceColumn": "product_name",
+            "summarizeBy": "none",
+            "lineageTag": "3809e605-5aad-542c-89b9-7ba28464b91f"
+          },
+          {
+            "name": "description_variants",
+            "dataType": "int64",
+            "sourceColumn": "description_variants",
+            "summarizeBy": "none",
+            "lineageTag": "af94af19-d234-5ed3-bf24-e31612e2c42b"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "dim_product",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"\\dim_product.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {",
+                "        {\"product_key\", type text},",
+                "        {\"product_name\", type text},",
+                "        {\"description_variants\", Int64.Type}",
+                "    }, \"en-GB\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ],
+        "lineageTag": "da695301-7e08-5e22-a206-05dfa828bd5f"
+      },
+      {
+        "name": "dim_country",
+        "columns": [
+          {
+            "name": "country_key",
+            "dataType": "string",
+            "sourceColumn": "country_key",
+            "summarizeBy": "none",
+            "lineageTag": "1f71ea11-2238-53a5-ac2a-a7bc68bfe181"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "dim_country",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"\\dim_country.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {",
+                "        {\"country_key\", type text}",
+                "    }, \"en-GB\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ],
+        "lineageTag": "62618344-c2b1-5bf4-a6f8-3142072c389e"
+      },
+      {
+        "name": "fact_invoice_line",
+        "columns": [
+          {
+            "name": "line_id",
+            "dataType": "int64",
+            "sourceColumn": "line_id",
+            "summarizeBy": "none",
+            "lineageTag": "f99ff2aa-459e-5d59-9315-2e3e94c584fe"
+          },
+          {
+            "name": "invoice_no",
+            "dataType": "string",
+            "sourceColumn": "invoice_no",
+            "summarizeBy": "none",
+            "lineageTag": "950cbffb-093b-5612-b886-2f08abfb09cc"
+          },
+          {
+            "name": "invoice_ts",
+            "dataType": "dateTime",
+            "sourceColumn": "invoice_ts",
+            "summarizeBy": "none",
+            "lineageTag": "42e55e77-63a0-5bfd-ac57-4f981562d70f"
+          },
+          {
+            "name": "date_key",
+            "dataType": "dateTime",
+            "sourceColumn": "date_key",
+            "summarizeBy": "none",
+            "lineageTag": "b1fd0d05-51e6-56c0-b0fa-52da43a66ba5",
+            "formatString": "dd MMM yyyy",
+            "isHidden": true
+          },
+          {
+            "name": "customer_key",
+            "dataType": "string",
+            "sourceColumn": "customer_key",
+            "summarizeBy": "none",
+            "lineageTag": "01938690-da95-5346-9db4-9ef060714025",
+            "isHidden": true
+          },
+          {
+            "name": "product_key",
+            "dataType": "string",
+            "sourceColumn": "product_key",
+            "summarizeBy": "none",
+            "lineageTag": "911f7f19-4ad9-566d-858d-c151474a1842",
+            "isHidden": true
+          },
+          {
+            "name": "country_key",
+            "dataType": "string",
+            "sourceColumn": "country_key",
+            "summarizeBy": "none",
+            "lineageTag": "04ef3659-e9ae-58aa-bb22-4d8fef8c029d",
+            "isHidden": true
+          },
+          {
+            "name": "quantity",
+            "dataType": "int64",
+            "sourceColumn": "quantity",
+            "summarizeBy": "none",
+            "lineageTag": "e6ca339b-f0f3-5fe6-be09-bff32f608145",
+            "isHidden": true
+          },
+          {
+            "name": "unit_price",
+            "dataType": "double",
+            "sourceColumn": "unit_price",
+            "summarizeBy": "none",
+            "lineageTag": "ad384eab-71fd-543c-86d8-32f00a2622d4",
+            "isHidden": true
+          },
+          {
+            "name": "amount_pence",
+            "dataType": "int64",
+            "sourceColumn": "amount_pence",
+            "summarizeBy": "none",
+            "lineageTag": "4382c467-a668-581f-b576-f10b67b300e2",
+            "isHidden": true
+          },
+          {
+            "name": "line_status",
+            "dataType": "string",
+            "sourceColumn": "line_status",
+            "summarizeBy": "none",
+            "lineageTag": "16684ade-cde1-545d-aa7b-c17a049d8e93"
+          },
+          {
+            "name": "duplicate_ordinal",
+            "dataType": "int64",
+            "sourceColumn": "duplicate_ordinal",
+            "summarizeBy": "none",
+            "lineageTag": "a2062c6b-9dfb-562a-baf3-0828ffd76e56"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "fact_invoice_line",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"\\fact_invoice_line.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {",
+                "        {\"line_id\", Int64.Type},",
+                "        {\"invoice_no\", type text},",
+                "        {\"invoice_ts\", type datetime},",
+                "        {\"date_key\", type date},",
+                "        {\"customer_key\", type text},",
+                "        {\"product_key\", type text},",
+                "        {\"country_key\", type text},",
+                "        {\"quantity\", Int64.Type},",
+                "        {\"unit_price\", type number},",
+                "        {\"amount_pence\", Int64.Type},",
+                "        {\"line_status\", type text},",
+                "        {\"duplicate_ordinal\", Int64.Type}",
+                "    }, \"en-GB\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ],
+        "lineageTag": "3b32b545-a664-5e71-bed9-34d85f164dc6",
+        "measures": [
+          {
+            "name": "Gross Sales GBP",
+            "expression": [
+              "CALCULATE ( SUM ( fact_invoice_line[amount_pence] ) / 100,",
+              "    fact_invoice_line[line_status] = \"sale\",",
+              "    KEEPFILTERS ( dim_date[is_complete_period] = TRUE () ) )"
+            ],
+            "formatString": "\u00a3#,0.00;(\u00a3#,0.00)",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Cancellation Postings GBP",
+            "expression": [
+              "-CALCULATE ( SUM ( fact_invoice_line[amount_pence] ) / 100,",
+              "    fact_invoice_line[line_status] = \"cancellation\",",
+              "    KEEPFILTERS ( dim_date[is_complete_period] = TRUE () ) )"
+            ],
+            "formatString": "\u00a3#,0.00;(\u00a3#,0.00)",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Net Merchandise GBP",
+            "expression": [
+              "[Gross Sales GBP] - [Cancellation Postings GBP]"
+            ],
+            "formatString": "\u00a3#,0.00;(\u00a3#,0.00)",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Cancellation Value Ratio",
+            "expression": [
+              "DIVIDE ( [Cancellation Postings GBP], [Gross Sales GBP] )"
+            ],
+            "formatString": "0.0%",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Sale Invoices",
+            "expression": [
+              "CALCULATE ( DISTINCTCOUNT ( fact_invoice_line[invoice_no] ),",
+              "    fact_invoice_line[line_status] = \"sale\",",
+              "    KEEPFILTERS ( dim_date[is_complete_period] = TRUE () ) )"
+            ],
+            "formatString": "#,0",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Gross AOV GBP",
+            "expression": [
+              "DIVIDE ( [Gross Sales GBP], [Sale Invoices] )"
+            ],
+            "formatString": "\u00a3#,0.00;(\u00a3#,0.00)",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Known Buyers",
+            "expression": [
+              "CALCULATE ( DISTINCTCOUNT ( fact_invoice_line[customer_key] ),",
+              "    fact_invoice_line[customer_key] <> \"UNKNOWN\", fact_invoice_line[line_status] = \"sale\",",
+              "    KEEPFILTERS ( dim_date[is_complete_period] = TRUE () ) )"
+            ],
+            "formatString": "#,0",
+            "displayFolder": "Customer continuity"
+          },
+          {
+            "name": "Anonymous Gross GBP",
+            "expression": [
+              "CALCULATE ( [Gross Sales GBP], REMOVEFILTERS ( dim_customer ),",
+              "    fact_invoice_line[customer_key] = \"UNKNOWN\" )"
+            ],
+            "formatString": "\u00a3#,0.00;(\u00a3#,0.00)",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Anonymous Gross Share",
+            "expression": [
+              "DIVIDE ( [Anonymous Gross GBP], CALCULATE ( [Gross Sales GBP], REMOVEFILTERS ( dim_customer ) ) )"
+            ],
+            "formatString": "0.0%",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Net YTD GBP",
+            "expression": [
+              "CALCULATE ( [Net Merchandise GBP], DATESYTD ( dim_date[date_key] ) )"
+            ],
+            "formatString": "\u00a3#,0.00;(\u00a3#,0.00)",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Net Previous Year Month GBP",
+            "expression": [
+              "IF ( HASONEVALUE ( dim_date[month_start] ),",
+              "    CALCULATE ( [Net Merchandise GBP], DATEADD ( dim_date[date_key], -1, YEAR ) ) )"
+            ],
+            "formatString": "\u00a3#,0.00;(\u00a3#,0.00)",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Net YoY Month Growth",
+            "expression": [
+              "VAR Prior = [Net Previous Year Month GBP]",
+              "RETURN IF ( NOT ISBLANK ( Prior ) && Prior > 0,",
+              "    DIVIDE ( [Net Merchandise GBP] - Prior, Prior ) )"
+            ],
+            "formatString": "0.0%",
+            "displayFolder": "Customer continuity"
+          },
+          {
+            "name": "Snapshot Customers",
+            "expression": [
+              "COUNTROWS ( customer_segments )"
+            ],
+            "formatString": "#,0",
+            "displayFolder": "Customer continuity"
+          },
+          {
+            "name": "Snapshot Gross GBP",
+            "expression": [
+              "SUM ( customer_segments[gross_pence] ) / 100"
+            ],
+            "formatString": "\u00a3#,0.00;(\u00a3#,0.00)",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Mature 90d Customers",
+            "expression": [
+              "CALCULATE ( COUNTROWS ( customer_lifecycle ),",
+              "    customer_lifecycle[after_warmup] = TRUE (),",
+              "    customer_lifecycle[fully_observed_90d] = TRUE () )"
+            ],
+            "formatString": "#,0",
+            "displayFolder": "Customer continuity"
+          },
+          {
+            "name": "Mature 90d Repeat Customers",
+            "expression": [
+              "CALCULATE ( COUNTROWS ( customer_lifecycle ),",
+              "    customer_lifecycle[after_warmup] = TRUE (),",
+              "    customer_lifecycle[fully_observed_90d] = TRUE (),",
+              "    FILTER ( customer_lifecycle,",
+              "        NOT ISBLANK ( customer_lifecycle[days_to_second_order] )",
+              "        && customer_lifecycle[days_to_second_order] <= 90 ) )"
+            ],
+            "formatString": "#,0",
+            "displayFolder": "Customer continuity"
+          },
+          {
+            "name": "Repeat 90d Rate",
+            "expression": [
+              "DIVIDE ( [Mature 90d Repeat Customers], [Mature 90d Customers] )"
+            ],
+            "formatString": "0.0%",
+            "displayFolder": "Customer continuity"
+          },
+          {
+            "name": "Cohort Active Buyers",
+            "expression": [
+              "IF ( HASONEVALUE ( cohort_retention[month_age] ), SUM ( cohort_retention[active_customers] ) )"
+            ],
+            "formatString": "#,0",
+            "displayFolder": "Customer continuity"
+          },
+          {
+            "name": "Cohort Eligible Buyers",
+            "expression": [
+              "IF ( HASONEVALUE ( cohort_retention[month_age] ),",
+              "    SUMX ( VALUES ( cohort_retention[cohort_month] ),",
+              "        CALCULATE ( MAX ( cohort_retention[cohort_size] ) ) ) )"
+            ],
+            "formatString": "#,0",
+            "displayFolder": "Customer continuity"
+          },
+          {
+            "name": "Purchase Retention Rate",
+            "expression": [
+              "DIVIDE ( [Cohort Active Buyers], [Cohort Eligible Buyers] )"
+            ],
+            "formatString": "0.0%",
+            "displayFolder": "Customer continuity"
+          },
+          {
+            "name": "Product Gross Share",
+            "expression": [
+              "DIVIDE ( [Gross Sales GBP], CALCULATE ( [Gross Sales GBP], REMOVEFILTERS ( dim_product ) ) )"
+            ],
+            "formatString": "0.0%",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Product Revenue Rank",
+            "expression": [
+              "RANKX ( ALLSELECTED ( dim_product ), [Gross Sales GBP], , DESC, DENSE )"
+            ],
+            "formatString": "#,0",
+            "displayFolder": "Customer continuity"
+          },
+          {
+            "name": "Net Deduplicated Scenario GBP",
+            "expression": [
+              "CALCULATE ( SUM ( fact_invoice_line[amount_pence] ) / 100,",
+              "    fact_invoice_line[duplicate_ordinal] = 1,",
+              "    KEEPFILTERS ( dim_date[is_complete_period] = TRUE () ) )"
+            ],
+            "formatString": "\u00a3#,0.00;(\u00a3#,0.00)",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Duplicate Sensitivity GBP",
+            "expression": [
+              "[Net Merchandise GBP] - [Net Deduplicated Scenario GBP]"
+            ],
+            "formatString": "\u00a3#,0.00;(\u00a3#,0.00)",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Selected Market Title",
+            "expression": [
+              "\"Merchandise value | \" & SELECTEDVALUE ( dim_country[country_key], \"Multiple / all markets\" )"
+            ],
+            "displayFolder": "Customer continuity"
+          }
+        ]
+      },
+      {
+        "name": "fact_order",
+        "columns": [
+          {
+            "name": "invoice_no",
+            "dataType": "string",
+            "sourceColumn": "invoice_no",
+            "summarizeBy": "none",
+            "lineageTag": "c3f0368f-f436-5fb2-b728-7af21fb54642"
+          },
+          {
+            "name": "customer_key",
+            "dataType": "string",
+            "sourceColumn": "customer_key",
+            "summarizeBy": "none",
+            "lineageTag": "c5103ad8-3146-572b-a5a2-88fc3b82bc70"
+          },
+          {
+            "name": "country_key",
+            "dataType": "string",
+            "sourceColumn": "country_key",
+            "summarizeBy": "none",
+            "lineageTag": "77c17e15-c810-5e11-b258-8b304075b766"
+          },
+          {
+            "name": "invoice_ts",
+            "dataType": "dateTime",
+            "sourceColumn": "invoice_ts",
+            "summarizeBy": "none",
+            "lineageTag": "098e7e77-a3ae-5bcb-9c15-c8631ac5f2b5"
+          },
+          {
+            "name": "date_key",
+            "dataType": "dateTime",
+            "sourceColumn": "date_key",
+            "summarizeBy": "none",
+            "lineageTag": "bf8c4296-3d93-5e7a-b7fd-1f071c88ae83",
+            "formatString": "dd MMM yyyy"
+          },
+          {
+            "name": "gross_pence",
+            "dataType": "int64",
+            "sourceColumn": "gross_pence",
+            "summarizeBy": "none",
+            "lineageTag": "5c51e922-5794-5873-812d-4de9b0051187"
+          },
+          {
+            "name": "line_count",
+            "dataType": "int64",
+            "sourceColumn": "line_count",
+            "summarizeBy": "none",
+            "lineageTag": "6d91f93b-7b7a-5c5c-a40b-62ab014ea7f7"
+          },
+          {
+            "name": "distinct_products",
+            "dataType": "int64",
+            "sourceColumn": "distinct_products",
+            "summarizeBy": "none",
+            "lineageTag": "f52f37b1-47c4-594e-902f-51d6bd06b238"
+          },
+          {
+            "name": "units",
+            "dataType": "int64",
+            "sourceColumn": "units",
+            "summarizeBy": "none",
+            "lineageTag": "aa693d9d-ec2a-5fc5-b226-03c5fe51cd41"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "fact_order",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"\\fact_order.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {",
+                "        {\"invoice_no\", type text},",
+                "        {\"customer_key\", type text},",
+                "        {\"country_key\", type text},",
+                "        {\"invoice_ts\", type datetime},",
+                "        {\"date_key\", type date},",
+                "        {\"gross_pence\", Int64.Type},",
+                "        {\"line_count\", Int64.Type},",
+                "        {\"distinct_products\", Int64.Type},",
+                "        {\"units\", Int64.Type}",
+                "    }, \"en-GB\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ],
+        "lineageTag": "60bc11ca-14bb-5a69-89bc-27b0c79de6ba",
+        "isHidden": true
+      },
+      {
+        "name": "customer_lifecycle",
+        "columns": [
+          {
+            "name": "customer_key",
+            "dataType": "string",
+            "sourceColumn": "customer_key",
+            "summarizeBy": "none",
+            "lineageTag": "98e8ce92-3ab0-5ebd-a5ec-069dcc3132c6"
+          },
+          {
+            "name": "first_purchase_date",
+            "dataType": "dateTime",
+            "sourceColumn": "first_purchase_date",
+            "summarizeBy": "none",
+            "lineageTag": "3384e4a2-59f3-560d-8ccc-14aaacc7aeb1",
+            "formatString": "dd MMM yyyy"
+          },
+          {
+            "name": "cohort_month",
+            "dataType": "dateTime",
+            "sourceColumn": "cohort_month",
+            "summarizeBy": "none",
+            "lineageTag": "46a1905e-d7f8-56f2-b4b8-84f582b8b9a1",
+            "formatString": "MMM yyyy"
+          },
+          {
+            "name": "last_purchase_date",
+            "dataType": "dateTime",
+            "sourceColumn": "last_purchase_date",
+            "summarizeBy": "none",
+            "lineageTag": "0914a6d1-ada6-556f-a762-1650b7c3c81a",
+            "formatString": "dd MMM yyyy"
+          },
+          {
+            "name": "orders",
+            "dataType": "int64",
+            "sourceColumn": "orders",
+            "summarizeBy": "none",
+            "lineageTag": "2b0ccfd4-bf02-59f2-ba4d-50163e7514f3"
+          },
+          {
+            "name": "gross_pence",
+            "dataType": "int64",
+            "sourceColumn": "gross_pence",
+            "summarizeBy": "none",
+            "lineageTag": "07d25ced-42b4-5f0f-b450-fdc8bd1a2883"
+          },
+          {
+            "name": "first_order_pence",
+            "dataType": "int64",
+            "sourceColumn": "first_order_pence",
+            "summarizeBy": "none",
+            "lineageTag": "5f71bb88-bd6a-5d6b-a255-3c12ccec8ffb"
+          },
+          {
+            "name": "first_order_breadth",
+            "dataType": "int64",
+            "sourceColumn": "first_order_breadth",
+            "summarizeBy": "none",
+            "lineageTag": "f5eca092-064d-5961-a185-5789702ef392"
+          },
+          {
+            "name": "first_country",
+            "dataType": "string",
+            "sourceColumn": "first_country",
+            "summarizeBy": "none",
+            "lineageTag": "3abadf67-9ab3-55e9-b25f-d33ab7ab8c2a"
+          },
+          {
+            "name": "days_to_second_order",
+            "dataType": "int64",
+            "sourceColumn": "days_to_second_order",
+            "summarizeBy": "none",
+            "lineageTag": "2bac6b69-1c88-5a41-9d1c-71d901c11595"
+          },
+          {
+            "name": "recency_days",
+            "dataType": "int64",
+            "sourceColumn": "recency_days",
+            "summarizeBy": "none",
+            "lineageTag": "d5d9fa48-c73e-50b7-a9cb-ab42fbd64210"
+          },
+          {
+            "name": "after_warmup",
+            "dataType": "boolean",
+            "sourceColumn": "after_warmup",
+            "summarizeBy": "none",
+            "lineageTag": "d131b968-e721-558b-a102-d3e3aa67be8d"
+          },
+          {
+            "name": "fully_observed_90d",
+            "dataType": "boolean",
+            "sourceColumn": "fully_observed_90d",
+            "summarizeBy": "none",
+            "lineageTag": "8c857e69-9223-52ea-b06e-b6d1e1976b47"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "customer_lifecycle",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"\\customer_lifecycle.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {",
+                "        {\"customer_key\", type text},",
+                "        {\"first_purchase_date\", type date},",
+                "        {\"cohort_month\", type date},",
+                "        {\"last_purchase_date\", type date},",
+                "        {\"orders\", Int64.Type},",
+                "        {\"gross_pence\", Int64.Type},",
+                "        {\"first_order_pence\", Int64.Type},",
+                "        {\"first_order_breadth\", Int64.Type},",
+                "        {\"first_country\", type text},",
+                "        {\"days_to_second_order\", Int64.Type},",
+                "        {\"recency_days\", Int64.Type},",
+                "        {\"after_warmup\", type logical},",
+                "        {\"fully_observed_90d\", type logical}",
+                "    }, \"en-GB\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ],
+        "lineageTag": "e7370b8b-c6c9-5b8f-89fa-5f799c964b8f"
+      },
+      {
+        "name": "customer_segments",
+        "columns": [
+          {
+            "name": "customer_key",
+            "dataType": "string",
+            "sourceColumn": "customer_key",
+            "summarizeBy": "none",
+            "lineageTag": "e93e40d4-d9ca-511a-aa9b-ea68ec729663"
+          },
+          {
+            "name": "first_purchase_date",
+            "dataType": "dateTime",
+            "sourceColumn": "first_purchase_date",
+            "summarizeBy": "none",
+            "lineageTag": "a110dd54-9e58-5923-9521-35290b57bc9c",
+            "formatString": "dd MMM yyyy"
+          },
+          {
+            "name": "cohort_month",
+            "dataType": "dateTime",
+            "sourceColumn": "cohort_month",
+            "summarizeBy": "none",
+            "lineageTag": "a990fd3a-e235-5b96-a4dd-6b7a51cd076f",
+            "formatString": "MMM yyyy"
+          },
+          {
+            "name": "last_purchase_date",
+            "dataType": "dateTime",
+            "sourceColumn": "last_purchase_date",
+            "summarizeBy": "none",
+            "lineageTag": "3a63e7e8-230c-5838-b8b2-3b5361d57a36",
+            "formatString": "dd MMM yyyy"
+          },
+          {
+            "name": "orders",
+            "dataType": "int64",
+            "sourceColumn": "orders",
+            "summarizeBy": "none",
+            "lineageTag": "72aa0e7e-7f50-58e8-b058-fd7a2b88c18c"
+          },
+          {
+            "name": "gross_pence",
+            "dataType": "int64",
+            "sourceColumn": "gross_pence",
+            "summarizeBy": "none",
+            "lineageTag": "d6431a57-721b-5858-ad24-d86234d6a902"
+          },
+          {
+            "name": "first_order_pence",
+            "dataType": "int64",
+            "sourceColumn": "first_order_pence",
+            "summarizeBy": "none",
+            "lineageTag": "7b545fce-8637-5668-814a-82052acdbb46"
+          },
+          {
+            "name": "first_order_breadth",
+            "dataType": "int64",
+            "sourceColumn": "first_order_breadth",
+            "summarizeBy": "none",
+            "lineageTag": "624b087b-c60e-509d-aa9e-983de3c1ec4b"
+          },
+          {
+            "name": "first_country",
+            "dataType": "string",
+            "sourceColumn": "first_country",
+            "summarizeBy": "none",
+            "lineageTag": "9057077f-f1c7-5d07-8ee4-ab61a84c1b11"
+          },
+          {
+            "name": "days_to_second_order",
+            "dataType": "int64",
+            "sourceColumn": "days_to_second_order",
+            "summarizeBy": "none",
+            "lineageTag": "b3526ce5-e7f1-51ae-9c52-bc43de09acc4"
+          },
+          {
+            "name": "recency_days",
+            "dataType": "int64",
+            "sourceColumn": "recency_days",
+            "summarizeBy": "none",
+            "lineageTag": "b251dee3-9455-5f0f-b0d5-7b5d7132fafc"
+          },
+          {
+            "name": "after_warmup",
+            "dataType": "boolean",
+            "sourceColumn": "after_warmup",
+            "summarizeBy": "none",
+            "lineageTag": "adbe6670-d59a-502c-bbce-fbf7ce3ffb06"
+          },
+          {
+            "name": "fully_observed_90d",
+            "dataType": "boolean",
+            "sourceColumn": "fully_observed_90d",
+            "summarizeBy": "none",
+            "lineageTag": "f0f0c960-1ac7-5686-951c-5ffa90f17697"
+          },
+          {
+            "name": "r_score",
+            "dataType": "int64",
+            "sourceColumn": "r_score",
+            "summarizeBy": "none",
+            "lineageTag": "a490f606-c972-5643-ab4c-d59d1741e7ef"
+          },
+          {
+            "name": "f_score",
+            "dataType": "int64",
+            "sourceColumn": "f_score",
+            "summarizeBy": "none",
+            "lineageTag": "e3389497-636d-5d9d-b2f6-baa0bd81e225"
+          },
+          {
+            "name": "m_score",
+            "dataType": "int64",
+            "sourceColumn": "m_score",
+            "summarizeBy": "none",
+            "lineageTag": "b9f31cd0-097d-53a3-8ff5-148b49d66228"
+          },
+          {
+            "name": "segment",
+            "dataType": "string",
+            "sourceColumn": "segment",
+            "summarizeBy": "none",
+            "lineageTag": "0c8e6987-a2f1-53a1-8f11-8eaca2cfd1d8"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "customer_segments",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"\\customer_segments.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {",
+                "        {\"customer_key\", type text},",
+                "        {\"first_purchase_date\", type date},",
+                "        {\"cohort_month\", type date},",
+                "        {\"last_purchase_date\", type date},",
+                "        {\"orders\", Int64.Type},",
+                "        {\"gross_pence\", Int64.Type},",
+                "        {\"first_order_pence\", Int64.Type},",
+                "        {\"first_order_breadth\", Int64.Type},",
+                "        {\"first_country\", type text},",
+                "        {\"days_to_second_order\", Int64.Type},",
+                "        {\"recency_days\", Int64.Type},",
+                "        {\"after_warmup\", type logical},",
+                "        {\"fully_observed_90d\", type logical},",
+                "        {\"r_score\", Int64.Type},",
+                "        {\"f_score\", Int64.Type},",
+                "        {\"m_score\", Int64.Type},",
+                "        {\"segment\", type text}",
+                "    }, \"en-GB\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ],
+        "lineageTag": "4a48447b-2b77-5b4a-a78c-a5eced5da1de"
+      },
+      {
+        "name": "cohort_retention",
+        "columns": [
+          {
+            "name": "cohort_month",
+            "dataType": "dateTime",
+            "sourceColumn": "cohort_month",
+            "summarizeBy": "none",
+            "lineageTag": "31c32342-8033-51a2-81cc-8e9fee562062",
+            "formatString": "MMM yyyy"
+          },
+          {
+            "name": "cohort_size",
+            "dataType": "int64",
+            "sourceColumn": "cohort_size",
+            "summarizeBy": "none",
+            "lineageTag": "ee66ce82-139c-5a1e-a0ad-262b8a878b5e"
+          },
+          {
+            "name": "month_age",
+            "dataType": "int64",
+            "sourceColumn": "month_age",
+            "summarizeBy": "none",
+            "lineageTag": "316e9d41-1105-5e98-8cd2-26b73b12c7fe"
+          },
+          {
+            "name": "activity_month",
+            "dataType": "dateTime",
+            "sourceColumn": "activity_month",
+            "summarizeBy": "none",
+            "lineageTag": "ab8bf24c-05be-5e22-bc58-29c2e834486c",
+            "formatString": "MMM yyyy"
+          },
+          {
+            "name": "active_customers",
+            "dataType": "int64",
+            "sourceColumn": "active_customers",
+            "summarizeBy": "none",
+            "lineageTag": "5bdc93d2-75b6-5787-97ac-186716572a5c"
+          },
+          {
+            "name": "retention_rate",
+            "dataType": "double",
+            "sourceColumn": "retention_rate",
+            "summarizeBy": "none",
+            "lineageTag": "95b0f3b6-63e2-580d-9013-3ebfc995777e"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "cohort_retention",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"\\cohort_retention.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {",
+                "        {\"cohort_month\", type date},",
+                "        {\"cohort_size\", Int64.Type},",
+                "        {\"month_age\", Int64.Type},",
+                "        {\"activity_month\", type date},",
+                "        {\"active_customers\", Int64.Type},",
+                "        {\"retention_rate\", type number}",
+                "    }, \"en-GB\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ],
+        "lineageTag": "63a2817b-5e7d-5885-936a-4c04ac0ac191"
+      }
+    ],
+    "relationships": [
+      {
+        "name": "fact_invoice_line_dim_date",
+        "fromTable": "fact_invoice_line",
+        "fromColumn": "date_key",
+        "toTable": "dim_date",
+        "toColumn": "date_key",
+        "fromCardinality": "many",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "fact_invoice_line_dim_customer",
+        "fromTable": "fact_invoice_line",
+        "fromColumn": "customer_key",
+        "toTable": "dim_customer",
+        "toColumn": "customer_key",
+        "fromCardinality": "many",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "fact_invoice_line_dim_country",
+        "fromTable": "fact_invoice_line",
+        "fromColumn": "country_key",
+        "toTable": "dim_country",
+        "toColumn": "country_key",
+        "fromCardinality": "many",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "fact_order_dim_date",
+        "fromTable": "fact_order",
+        "fromColumn": "date_key",
+        "toTable": "dim_date",
+        "toColumn": "date_key",
+        "fromCardinality": "many",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "fact_order_dim_customer",
+        "fromTable": "fact_order",
+        "fromColumn": "customer_key",
+        "toTable": "dim_customer",
+        "toColumn": "customer_key",
+        "fromCardinality": "many",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "fact_order_dim_country",
+        "fromTable": "fact_order",
+        "fromColumn": "country_key",
+        "toTable": "dim_country",
+        "toColumn": "country_key",
+        "fromCardinality": "many",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "line_product",
+        "fromTable": "fact_invoice_line",
+        "fromColumn": "product_key",
+        "toTable": "dim_product",
+        "toColumn": "product_key",
+        "crossFilteringBehavior": "oneDirection",
+        "fromCardinality": "many",
+        "toCardinality": "one"
+      }
+    ],
+    "expressions": [
+      {
+        "name": "DataFolder",
+        "kind": "m",
+        "expression": "\"C:\\Users\\User\\Desktop\\Revenue Quality Intelligence\\data\\exports\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]"
+      }
+    ],
+    "annotations": [
+      {
+        "name": "PBI_ProTooling",
+        "value": "[\"DevMode\"]"
+      }
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+line_status,row_count,signed_gbp,missing_customer_rows,missing_description_rows
+sale,1014945,19699784.97,226758,0
+overlap_partition,22523,377488.45,7720,107
+cancellation,17973,-719656.34,332,0
+zero_price,6024,0.0,5954,4275
+non_merchandise,5901,88309.61,2238,0
+negative_price,5,-158676.14,5,0

@@ -1,0 +1,11 @@
+{
+  "comparison": "6+ first-order SKUs versus 1\u20135; common calendar cohorts",
+  "risk_difference": 0.1133497096258261,
+  "ci95_normal": [
+    0.06792665499035071,
+    0.1587727642613015
+  ],
+  "common_cohorts": 19,
+  "method": "Pooled cohort-size standardization; independent Bernoulli plug-in variance; fixed strata weights",
+  "limitations": "Observational convenience data; adjusts month only. No causal effect, randomized allocation or population representativeness."
+}

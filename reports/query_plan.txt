@@ -1,0 +1,278 @@
+┌─────────────────────────────────────┐
+│┌───────────────────────────────────┐│
+││    Query Profiling Information    ││
+│└───────────────────────────────────┘│
+└─────────────────────────────────────┘
+EXPLAIN ANALYZE -- Merchandising: basket-level distinct presence avoids line fanout; top 40 products only. WITH top_products AS (SELECT product_key FROM mart.v_complete_lines WHERE line_status='sale' GROUP BY 1 ORDER BY count(*) DESC,product_key LIMIT 40), b AS (SELECT DISTINCT invoice_no,product_key FROM mart.v_complete_lines WHERE line_status='sale' AND product_key IN (SELECT product_key FROM top_products)), freq AS (SELECT product_key,count(*) baskets FROM b GROUP BY 1), pairs AS (SELECT a.product_key product_a,b.product_key product_b,count(*) pair_baskets FROM b a JOIN b ON a.invoice_no=b.invoice_no AND a.product_key<b.product_key GROUP BY 1,2), total AS (SELECT count(DISTINCT invoice_no)::DOUBLE n FROM mart.v_complete_lines WHERE line_status='sale') SELECT p.*,p.pair_baskets/total.n support,p.pair_baskets::DOUBLE/fa.baskets confidence_a_to_b, p.pair_baskets*total.n/(fa.baskets::DOUBLE*fb.baskets) lift FROM pairs p JOIN freq fa ON p.product_a=fa.product_key JOIN freq fb ON p.product_b=fb.product_key CROSS JOIN total WHERE pair_baskets>=50 ORDER BY lift DESC;
+┌────────────────────────────────────────────────┐
+│┌──────────────────────────────────────────────┐│
+││              Total Time: 0.0521s             ││
+│└──────────────────────────────────────────────┘│
+└────────────────────────────────────────────────┘
+┌───────────────────┐
+│       QUERY       │
+└─────────┬─────────┘
+┌─────────┴─────────┐
+│  EXPLAIN_ANALYZE  │
+│    ────────────   │
+│       0 rows      │
+│      (0.00s)      │
+└─────────┬─────────┘
+┌─────────┴─────────┐
+│        CTE        │
+│    ────────────   │
+│    CTE Name: b    │
+│                   │
+│    Table Index:   ├─────────────────────────────────────────────────────────────────────────┐
+│         21        │                                                                         │
+│                   │                                                                         │
+│       0 rows      │                                                                         │
+│      (0.00s)      │                                                                         │
+└─────────┬─────────┘                                                                         │
+┌─────────┴─────────┐                                                               ┌─────────┴─────────┐
+│     PROJECTION    │                                                               │        CTE        │
+│    ────────────   │                                                               │    ────────────   │
+│__internal_decompre│                                                               │     CTE Name:     │
+│   ss_string(#0)   │                                                               │        freq       │
+│__internal_decompre│                                                               │                   │
+│   ss_string(#1)   │                                                               │    Table Index:   ├──────────┐
+│                   │                                                               │         49        │          │
+│                   │                                                               │                   │          │
+│    91,307 rows    │                                                               │       0 rows      │          │
+│      (0.00s)      │                                                               │      (0.00s)      │          │
+└─────────┬─────────┘                                                               └─────────┬─────────┘          │
+┌─────────┴─────────┐                                                               ┌─────────┴─────────┐┌─────────┴─────────┐
+│   HASH_GROUP_BY   │                                                               │   HASH_GROUP_BY   ││      ORDER_BY     │
+│    ────────────   │                                                               │    ────────────   ││    ────────────   │
+│      Groups:      │                                                               │     Groups: #0    ││ ((p.pair_baskets *│
+│         #0        │                                                               │                   ││  total.n) / (CAST │
+│         #1        │                                                               │    Aggregates:    ││   (fa.baskets AS  │
+│                   │                                                               │    count_star()   ││    DOUBLE) * fb   │
+│                   │                                                               │                   ││  .baskets)) DESC  │
+│                   │                                                               │                   ││                   │
+│    91,307 rows    │                                                               │      40 rows      ││      780 rows     │
+│      (0.01s)      │                                                               │      (0.00s)      ││      (0.00s)      │
+└─────────┬─────────┘                                                               └─────────┬─────────┘└─────────┬─────────┘
+┌─────────┴─────────┐                                                               ┌─────────┴─────────┐┌─────────┴─────────┐
+│     PROJECTION    │                                                               │     PROJECTION    ││     PROJECTION    │
+│    ────────────   │                                                               │    ────────────   ││    ────────────   │
+│     invoice_no    │                                                               │    product_key    ││     product_a     │
+│    product_key    │                                                               │                   ││     product_b     │
+│                   │                                                               │                   ││    pair_baskets   │
+│                   │                                                               │                   ││      support      │
+│                   │                                                               │                   ││ confidence_a_to_b │
+│                   │                                                               │                   ││        lift       │
+│                   │                                                               │                   ││                   │
+│    93,757 rows    │                                                               │    91,307 rows    ││      780 rows     │
+│      (0.00s)      │                                                               │      (0.00s)      ││      (0.00s)      │
+└─────────┬─────────┘                                                               └─────────┬─────────┘└─────────┬─────────┘
+┌─────────┴─────────┐                                                               ┌─────────┴─────────┐┌─────────┴─────────┐
+│     PROJECTION    │                                                               │      CTE_SCAN     ││     PROJECTION    │
+│    ────────────   │                                                               │    ────────────   ││    ────────────   │
+│__internal_compress│                                                               │   CTE Index: 21   ││     product_a     │
+│_string_ubigint(#0)│                                                               │                   ││     product_b     │
+│__internal_compress│                                                               │                   ││    pair_baskets   │
+│_string_ubigint(#1)│                                                               │                   ││ CAST(pair_baskets │
+│                   │                                                               │                   ││     AS DOUBLE)    │
+│                   │                                                               │                   ││         n         │
+│                   │                                                               │                   ││  CAST(baskets AS  │
+│                   │                                                               │                   ││       DOUBLE)     │
+│                   │                                                               │                   ││      baskets      │
+│                   │                                                               │                   ││                   │
+│    93,757 rows    │                                                               │    91,307 rows    ││      780 rows     │
+│      (0.00s)      │                                                               │      (0.00s)      ││      (0.00s)      │
+└─────────┬─────────┘                                                               └───────────────────┘└─────────┬─────────┘
+┌─────────┴─────────┐                                                                                    ┌─────────┴─────────┐
+│     HASH_JOIN     │                                                                                    │   CROSS_PRODUCT   │
+│    ────────────   │                                                                                    │    ────────────   │
+│     Join Type:    │                                                                                    │                   │
+│        SEMI       │                                                                                    │                   │
+│                   │                                                                                    │                   │
+│    Conditions:    ├───────────────────────────────┐                                                    │                   ├───────────────────────────────┐
+│  product_key = #0 │                               │                                                    │                   │                               │
+│                   │                               │                                                    │                   │                               │
+│    93,757 rows    │                               │                                                    │      780 rows     │                               │
+│      (0.01s)      │                               │                                                    │      (0.00s)      │                               │
+└─────────┬─────────┘                               │                                                    └─────────┬─────────┘                               │
+┌─────────┴─────────┐                     ┌─────────┴─────────┐                                          ┌─────────┴─────────┐                     ┌─────────┴─────────┐
+│     PROJECTION    │                     │     PROJECTION    │                                          │     PROJECTION    │                     │     HASH_JOIN     │
+│    ────────────   │                     │    ────────────   │                                          │    ────────────   │                     │    ────────────   │
+│     invoice_no    │                     │         #0        │                                          │         n         │                     │     Join Type:    │
+│    product_key    │                     │                   │                                          │                   │                     │       INNER       │
+│                   │                     │                   │                                          │                   │                     │                   │
+│                   │                     │                   │                                          │                   │                     │    Conditions:    ├──────────┐
+│                   │                     │                   │                                          │                   │                     │   product_key =   │          │
+│                   │                     │                   │                                          │                   │                     │      product_b    │          │
+│                   │                     │                   │                                          │                   │                     │                   │          │
+│    924,011 rows   │                     │      40 rows      │                                          │       1 row       │                     │      780 rows     │          │
+│      (0.00s)      │                     │      (0.00s)      │                                          │      (0.00s)      │                     │      (0.00s)      │          │
+└─────────┬─────────┘                     └─────────┬─────────┘                                          └─────────┬─────────┘                     └─────────┬─────────┘          │
+┌─────────┴─────────┐                     ┌─────────┴─────────┐                                          ┌─────────┴─────────┐                     ┌─────────┴─────────┐┌─────────┴─────────┐
+│  NESTED_LOOP_JOIN │                     │       TOP_N       │                                          │UNGROUPED_AGGREGATE│                     │      CTE_SCAN     ││     HASH_JOIN     │
+│    ────────────   │                     │    ────────────   │                                          │    ────────────   │                     │    ────────────   ││    ────────────   │
+│     Join Type:    │                     │      Top: 40      │                                          │    Aggregates:    │                     │   CTE Index: 49   ││     Join Type:    │
+│       INNER       │                     │                   │                                          │ count(DISTINCT #0)│                     │                   ││       INNER       │
+│                   │                     │     Order By:     │                                          │                   │                     │                   ││                   │
+│    Conditions:    │                     │      #1 DESC      │                                          │                   │                     │                   ││    Conditions:    │
+│date_key < SUBQUERY├──────────┐          │    retail.mart    │                                          │                   │                     │                   ││   product_key =   ├──────────┐
+│                   │          │          │ .v_complete_lines │                                          │                   │                     │                   ││      product_a    │          │
+│                   │          │          │  .product_key ASC │                                          │                   │                     │                   ││                   │          │
+│                   │          │          │                   │                                          │                   │                     │                   ││                   │          │
+│    924,011 rows   │          │          │      40 rows      │                                          │       1 row       │                     │      40 rows      ││      780 rows     │          │
+│      (0.01s)      │          │          │      (0.00s)      │                                          │      (0.03s)      │                     │      (0.00s)      ││      (0.00s)      │          │
+└─────────┬─────────┘          │          └─────────┬─────────┘                                          └─────────┬─────────┘                     └───────────────────┘└─────────┬─────────┘          │
+┌─────────┴─────────┐┌─────────┴─────────┐┌─────────┴─────────┐                                          ┌─────────┴─────────┐                                          ┌─────────┴─────────┐┌─────────┴─────────┐
+│     TABLE_SCAN    ││     PROJECTION    ││     PROJECTION    │                                          │     PROJECTION    │                                          │      CTE_SCAN     ││       FILTER      │
+│    ────────────   ││    ────────────   ││    ────────────   │                                          │    ────────────   │                                          │    ────────────   ││    ────────────   │
+│       Table:      ││ CASE  WHEN ((#1 > ││__internal_decompre│                                          │     invoice_no    │                                          │   CTE Index: 49   ││  (pair_baskets >= │
+│ fact_invoice_line ││  1)) THEN ("error"││   ss_string(#0)   │                                          │                   │                                          │                   ││         50)       │
+│                   ││  ('More than one  ││         #1        │                                          │                   │                                          │                   ││                   │
+│       Type:       ││  row returned by a││                   │                                          │                   │                                          │                   ││                   │
+│  Sequential Scan  ││  subquery used as ││                   │                                          │                   │                                          │                   ││                   │
+│                   ││   an expression - ││                   │                                          │                   │                                          │                   ││                   │
+│    Projections:   ││  scalar subqueries││                   │                                          │                   │                                          │                   ││                   │
+│      date_key     ││  can only return a││                   │                                          │                   │                                          │                   ││                   │
+│     invoice_no    ││     single row.   ││                   │                                          │                   │                                          │                   ││                   │
+│    product_key    ││      Use "SET     ││                   │                                          │                   │                                          │                   ││                   │
+│                   ││ scalar_subquery_er││                   │                                          │                   │                                          │                   ││                   │
+│      Filters:     ││ror_on_multiple_row││                   │                                          │                   │                                          │                   ││                   │
+│ line_status='sale'││ s=false" to revert││                   │                                          │                   │                                          │                   ││                   │
+│                   ││     to previous   ││                   │                                          │                   │                                          │                   ││                   │
+│                   ││     behavior of   ││                   │                                          │                   │                                          │                   ││                   │
+│                   ││     returning a   ││                   │                                          │                   │                                          │                   ││                   │
+│                   ││   random row.'))  ││                   │                                          │                   │                                          │                   ││                   │
+│                   ││     ELSE #0 END   ││                   │                                          │                   │                                          │                   ││                   │
+│                   ││                   ││                   │                                          │                   │                                          │                   ││                   │
+│    924,011 rows   ││       1 row       ││     4,706 rows    │                                          │    989,915 rows   │                                          │      40 rows      ││      780 rows     │
+│      (0.03s)      ││      (0.00s)      ││      (0.00s)      │                                          │      (0.00s)      │                                          │      (0.00s)      ││      (0.00s)      │
+└───────────────────┘└─────────┬─────────┘└─────────┬─────────┘                                          └─────────┬─────────┘                                          └───────────────────┘└─────────┬─────────┘
+                     ┌─────────┴─────────┐┌─────────┴─────────┐                                          ┌─────────┴─────────┐                                                               ┌─────────┴─────────┐
+                     │UNGROUPED_AGGREGATE││   HASH_GROUP_BY   │                                          │     PROJECTION    │                                                               │   HASH_GROUP_BY   │
+                     │    ────────────   ││    ────────────   │                                          │    ────────────   │                                                               │    ────────────   │
+                     │    Aggregates:    ││     Groups: #0    │                                          │     invoice_no    │                                                               │      Groups:      │
+                     │    "first"(#0)    ││                   │                                          │                   │                                                               │         #0        │
+                     │    count_star()   ││    Aggregates:    │                                          │                   │                                                               │         #1        │
+                     │                   ││    count_star()   │                                          │                   │                                                               │                   │
+                     │                   ││                   │                                          │                   │                                                               │    Aggregates:    │
+                     │                   ││                   │                                          │                   │                                                               │    count_star()   │
+                     │                   ││                   │                                          │                   │                                                               │                   │
+                     │       1 row       ││     4,706 rows    │                                          │    989,915 rows   │                                                               │      780 rows     │
+                     │      (0.00s)      ││      (0.01s)      │                                          │      (0.00s)      │                                                               │      (0.01s)      │
+                     └─────────┬─────────┘└─────────┬─────────┘                                          └─────────┬─────────┘                                                               └─────────┬─────────┘
+                     ┌─────────┴─────────┐┌─────────┴─────────┐                                          ┌─────────┴─────────┐                                                               ┌─────────┴─────────┐
+                     │     PROJECTION    ││     PROJECTION    │                                          │  NESTED_LOOP_JOIN │                                                               │     PROJECTION    │
+                     │    ────────────   ││    ────────────   │                                          │    ────────────   │                                                               │    ────────────   │
+                     │         #0        ││    product_key    │                                          │     Join Type:    │                                                               │     product_a     │
+                     │                   ││                   │                                          │       INNER       │                                                               │     product_b     │
+                     │                   ││                   │                                          │                   │                                                               │                   │
+                     │                   ││                   │                                          │    Conditions:    ├──────────┐                                                    │                   │
+                     │                   ││                   │                                          │date_key < SUBQUERY│          │                                                    │                   │
+                     │                   ││                   │                                          │                   │          │                                                    │                   │
+                     │       1 row       ││    989,915 rows   │                                          │    989,915 rows   │          │                                                    │    257,344 rows   │
+                     │      (0.00s)      ││      (0.00s)      │                                          │      (0.00s)      │          │                                                    │      (0.00s)      │
+                     └─────────┬─────────┘└─────────┬─────────┘                                          └─────────┬─────────┘          │                                                    └─────────┬─────────┘
+                     ┌─────────┴─────────┐┌─────────┴─────────┐                                          ┌─────────┴─────────┐┌─────────┴─────────┐                                          ┌─────────┴─────────┐
+                     │     TABLE_SCAN    ││     PROJECTION    │                                          │     TABLE_SCAN    ││     PROJECTION    │                                          │     HASH_JOIN     │
+                     │    ────────────   ││    ────────────   │                                          │    ────────────   ││    ────────────   │                                          │    ────────────   │
+                     │       Table:      ││__internal_compress│                                          │       Table:      ││ CASE  WHEN ((#1 > │                                          │     Join Type:    │
+                     │  reporting_policy ││_string_ubigint(#0)│                                          │ fact_invoice_line ││  1)) THEN ("error"│                                          │       INNER       │
+                     │                   ││                   │                                          │                   ││  ('More than one  │                                          │                   │
+                     │       Type:       ││                   │                                          │       Type:       ││  row returned by a│                                          │    Conditions:    │
+                     │  Sequential Scan  ││                   │                                          │  Sequential Scan  ││  subquery used as │                                          │    invoice_no =   │
+                     │                   ││                   │                                          │                   ││   an expression - │                                          │     invoice_no    │
+                     │    Projections:   ││                   │                                          │    Projections:   ││  scalar subqueries│                                          │   product_key <   │
+                     │       cutoff      ││                   │                                          │      date_key     ││  can only return a│                                          │     product_key   │
+                     │                   ││                   │                                          │     invoice_no    ││     single row.   │                                          │                   │
+                     │                   ││                   │                                          │                   ││      Use "SET     │                                          │                   ├──────────┐
+                     │                   ││                   │                                          │      Filters:     ││ scalar_subquery_er│                                          │                   │          │
+                     │                   ││                   │                                          │ line_status='sale'││ror_on_multiple_row│                                          │                   │          │
+                     │                   ││                   │                                          │                   ││ s=false" to revert│                                          │                   │          │
+                     │                   ││                   │                                          │                   ││     to previous   │                                          │                   │          │
+                     │                   ││                   │                                          │                   ││     behavior of   │                                          │                   │          │
+                     │                   ││                   │                                          │                   ││     returning a   │                                          │                   │          │
+                     │                   ││                   │                                          │                   ││   random row.'))  │                                          │                   │          │
+                     │                   ││                   │                                          │                   ││     ELSE #0 END   │                                          │                   │          │
+                     │                   ││                   │                                          │                   ││                   │                                          │                   │          │
+                     │       1 row       ││    989,915 rows   │                                          │    989,915 rows   ││       1 row       │                                          │    257,344 rows   │          │
+                     │      (0.00s)      ││      (0.00s)      │                                          │      (0.02s)      ││      (0.00s)      │                                          │      (0.02s)      │          │
+                     └───────────────────┘└─────────┬─────────┘                                          └───────────────────┘└─────────┬─────────┘                                          └─────────┬─────────┘          │
+                                          ┌─────────┴─────────┐                                                               ┌─────────┴─────────┐                                          ┌─────────┴─────────┐┌─────────┴─────────┐
+                                          │     PROJECTION    │                                                               │UNGROUPED_AGGREGATE│                                          │      CTE_SCAN     ││      CTE_SCAN     │
+                                          │    ────────────   │                                                               │    ────────────   │                                          │    ────────────   ││    ────────────   │
+                                          │    product_key    │                                                               │    Aggregates:    │                                          │   CTE Index: 21   ││   CTE Index: 21   │
+                                          │                   │                                                               │    "first"(#0)    │                                          │                   ││                   │
+                                          │                   │                                                               │    count_star()   │                                          │                   ││                   │
+                                          │                   │                                                               │                   │                                          │                   ││                   │
+                                          │    989,915 rows   │                                                               │       1 row       │                                          │    91,307 rows    ││    91,307 rows    │
+                                          │      (0.00s)      │                                                               │      (0.00s)      │                                          │      (0.00s)      ││      (0.00s)      │
+                                          └─────────┬─────────┘                                                               └─────────┬─────────┘                                          └───────────────────┘└───────────────────┘
+                                          ┌─────────┴─────────┐                                                               ┌─────────┴─────────┐
+                                          │  NESTED_LOOP_JOIN │                                                               │     PROJECTION    │
+                                          │    ────────────   │                                                               │    ────────────   │
+                                          │     Join Type:    │                                                               │         #0        │
+                                          │       INNER       │                                                               │                   │
+                                          │                   │                                                               │                   │
+                                          │    Conditions:    ├──────────┐                                                    │                   │
+                                          │date_key < SUBQUERY│          │                                                    │                   │
+                                          │                   │          │                                                    │                   │
+                                          │    989,915 rows   │          │                                                    │       1 row       │
+                                          │      (0.01s)      │          │                                                    │      (0.00s)      │
+                                          └─────────┬─────────┘          │                                                    └─────────┬─────────┘
+                                          ┌─────────┴─────────┐┌─────────┴─────────┐                                          ┌─────────┴─────────┐
+                                          │     TABLE_SCAN    ││     PROJECTION    │                                          │     TABLE_SCAN    │
+                                          │    ────────────   ││    ────────────   │                                          │    ────────────   │
+                                          │       Table:      ││ CASE  WHEN ((#1 > │                                          │       Table:      │
+                                          │ fact_invoice_line ││  1)) THEN ("error"│                                          │  reporting_policy │
+                                          │                   ││  ('More than one  │                                          │                   │
+                                          │       Type:       ││  row returned by a│                                          │       Type:       │
+                                          │  Sequential Scan  ││  subquery used as │                                          │  Sequential Scan  │
+                                          │                   ││   an expression - │                                          │                   │
+                                          │    Projections:   ││  scalar subqueries│                                          │    Projections:   │
+                                          │      date_key     ││  can only return a│                                          │       cutoff      │
+                                          │    product_key    ││     single row.   │                                          │                   │
+                                          │                   ││      Use "SET     │                                          │                   │
+                                          │      Filters:     ││ scalar_subquery_er│                                          │                   │
+                                          │ line_status='sale'││ror_on_multiple_row│                                          │                   │
+                                          │                   ││ s=false" to revert│                                          │                   │
+                                          │                   ││     to previous   │                                          │                   │
+                                          │                   ││     behavior of   │                                          │                   │
+                                          │                   ││     returning a   │                                          │                   │
+                                          │                   ││   random row.'))  │                                          │                   │
+                                          │                   ││     ELSE #0 END   │                                          │                   │
+                                          │                   ││                   │                                          │                   │
+                                          │    989,915 rows   ││       1 row       │                                          │       1 row       │
+                                          │      (0.01s)      ││      (0.00s)      │                                          │      (0.00s)      │
+                                          └───────────────────┘└─────────┬─────────┘                                          └───────────────────┘
+                                                               ┌─────────┴─────────┐
+                                                               │UNGROUPED_AGGREGATE│
+                                                               │    ────────────   │
+                                                               │    Aggregates:    │
+                                                               │    "first"(#0)    │
+                                                               │    count_star()   │
+                                                               │                   │
+                                                               │       1 row       │
+                                                               │      (0.00s)      │
+                                                               └─────────┬─────────┘
+                                                               ┌─────────┴─────────┐
+                                                               │     PROJECTION    │
+                                                               │    ────────────   │
+                                                               │         #0        │
+                                                               │                   │
+                                                               │       1 row       │
+                                                               │      (0.00s)      │
+                                                               └─────────┬─────────┘
+                                                               ┌─────────┴─────────┐
+                                                               │     TABLE_SCAN    │
+                                                               │    ────────────   │
+                                                               │       Table:      │
+                                                               │  reporting_policy │
+                                                               │                   │
+                                                               │       Type:       │
+                                                               │  Sequential Scan  │
+                                                               │                   │
+                                                               │    Projections:   │
+                                                               │       cutoff      │
+                                                               │                   │
+                                                               │       1 row       │
+                                                               │      (0.00s)      │
+                                                               └───────────────────┘

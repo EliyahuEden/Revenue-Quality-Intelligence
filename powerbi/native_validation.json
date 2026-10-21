@@ -1,0 +1,287 @@
+{
+  "measure_count": 25,
+  "all_measures": {
+    "[Net Merchandise GBP]": 18538765.41,
+    "[Snapshot Gross GBP]": 16611695.8,
+    "[Net Previous Year Month GBP]": null,
+    "[Net YTD GBP]": 8590689.43,
+    "[Snapshot Customers]": 5824,
+    "[Anonymous Gross Share]": 0.12956198755550677,
+    "[Mature 90d Repeat Customers]": 1458,
+    "[Selected Market Title]": "Merchandise value | Multiple / all markets",
+    "[Repeat 90d Rate]": 0.41268044155108974,
+    "[Cohort Eligible Buyers]": null,
+    "[Purchase Retention Rate]": null,
+    "[Product Gross Share]": 1.0,
+    "[Cohort Active Buyers]": null,
+    "[Known Buyers]": 5824,
+    "[Anonymous Gross GBP]": 2472599.19,
+    "[Product Revenue Rank]": 1,
+    "[Cancellation Value Ratio]": 0.028585262399572667,
+    "[Duplicate Sensitivity GBP]": 52895.5,
+    "[Gross AOV GBP]": 493.1342374677002,
+    "[Net Deduplicated Scenario GBP]": 18485869.91,
+    "[Mature 90d Customers]": 3533,
+    "[Net YoY Month Growth]": null,
+    "[Sale Invoices]": 38700,
+    "[Cancellation Postings GBP]": 545529.58,
+    "[Gross Sales GBP]": 19084294.99
+  },
+  "passed": true,
+  "engine": "Power BI Desktop local Analysis Services via ADOMD",
+  "verified_at": "2026-10-21T19:10:58.3961804+03:00",
+  "finance_checks": [
+    {
+      "expected": 19084294.99,
+      "actual": 19084294.99,
+      "measure": "gross",
+      "passed": true,
+      "context": "all|all"
+    },
+    {
+      "expected": 545529.58,
+      "actual": 545529.58,
+      "measure": "cancellations",
+      "passed": true,
+      "context": "all|all"
+    },
+    {
+      "expected": 18538765.41,
+      "actual": 18538765.41,
+      "measure": "net",
+      "passed": true,
+      "context": "all|all"
+    },
+    {
+      "expected": 38700,
+      "actual": 38700,
+      "measure": "orders",
+      "passed": true,
+      "context": "all|all"
+    },
+    {
+      "expected": 16282882.08,
+      "actual": 16282882.08,
+      "measure": "gross",
+      "passed": true,
+      "context": "all|United Kingdom"
+    },
+    {
+      "expected": 462243.87,
+      "actual": 462243.87,
+      "measure": "cancellations",
+      "passed": true,
+      "context": "all|United Kingdom"
+    },
+    {
+      "expected": 15820638.21,
+      "actual": 15820638.21,
+      "measure": "net",
+      "passed": true,
+      "context": "all|United Kingdom"
+    },
+    {
+      "expected": 35440,
+      "actual": 35440,
+      "measure": "orders",
+      "passed": true,
+      "context": "all|United Kingdom"
+    },
+    {
+      "expected": 376823.5,
+      "actual": 376823.5,
+      "measure": "gross",
+      "passed": true,
+      "context": "all|Germany"
+    },
+    {
+      "expected": 8536.02,
+      "actual": 8536.02,
+      "measure": "cancellations",
+      "passed": true,
+      "context": "all|Germany"
+    },
+    {
+      "expected": 368287.48,
+      "actual": 368287.48,
+      "measure": "net",
+      "passed": true,
+      "context": "all|Germany"
+    },
+    {
+      "expected": 736,
+      "actual": 736,
+      "measure": "orders",
+      "passed": true,
+      "context": "all|Germany"
+    },
+    {
+      "expected": 9405676.17,
+      "actual": 9405676.17,
+      "measure": "gross",
+      "passed": true,
+      "context": "2010|all"
+    },
+    {
+      "expected": 238978.74,
+      "actual": 238978.74,
+      "measure": "cancellations",
+      "passed": true,
+      "context": "2010|all"
+    },
+    {
+      "expected": 9166697.43,
+      "actual": 9166697.43,
+      "measure": "net",
+      "passed": true,
+      "context": "2010|all"
+    },
+    {
+      "expected": 19627,
+      "actual": 19627,
+      "measure": "orders",
+      "passed": true,
+      "context": "2010|all"
+    },
+    {
+      "expected": 8085733.2,
+      "actual": 8085733.2,
+      "measure": "gross",
+      "passed": true,
+      "context": "2010|United Kingdom"
+    },
+    {
+      "expected": 186391.64,
+      "actual": 186391.64,
+      "measure": "cancellations",
+      "passed": true,
+      "context": "2010|United Kingdom"
+    },
+    {
+      "expected": 7899341.56,
+      "actual": 7899341.5600000005,
+      "measure": "net",
+      "passed": true,
+      "context": "2010|United Kingdom"
+    },
+    {
+      "expected": 18140,
+      "actual": 18140,
+      "measure": "orders",
+      "passed": true,
+      "context": "2010|United Kingdom"
+    },
+    {
+      "expected": 182522.07,
+      "actual": 182522.07,
+      "measure": "gross",
+      "passed": true,
+      "context": "2010|Germany"
+    },
+    {
+      "expected": 4300.07,
+      "actual": 4300.07,
+      "measure": "cancellations",
+      "passed": true,
+      "context": "2010|Germany"
+    },
+    {
+      "expected": 178222.0,
+      "actual": 178222.0,
+      "measure": "net",
+      "passed": true,
+      "context": "2010|Germany"
+    },
+    {
+      "expected": 322,
+      "actual": 322,
+      "measure": "orders",
+      "passed": true,
+      "context": "2010|Germany"
+    },
+    {
+      "expected": 8877678.99,
+      "actual": 8877678.99,
+      "measure": "gross",
+      "passed": true,
+      "context": "2011|all"
+    },
+    {
+      "expected": 286989.56,
+      "actual": 286989.56,
+      "measure": "cancellations",
+      "passed": true,
+      "context": "2011|all"
+    },
+    {
+      "expected": 8590689.43,
+      "actual": 8590689.43,
+      "measure": "net",
+      "passed": true,
+      "context": "2011|all"
+    },
+    {
+      "expected": 17407,
+      "actual": 17407,
+      "measure": "orders",
+      "passed": true,
+      "context": "2011|all"
+    },
+    {
+      "expected": 7467530.34,
+      "actual": 7467530.34,
+      "measure": "gross",
+      "passed": true,
+      "context": "2011|United Kingdom"
+    },
+    {
+      "expected": 258511.09,
+      "actual": 258511.09,
+      "measure": "cancellations",
+      "passed": true,
+      "context": "2011|United Kingdom"
+    },
+    {
+      "expected": 7209019.25,
+      "actual": 7209019.25,
+      "measure": "net",
+      "passed": true,
+      "context": "2011|United Kingdom"
+    },
+    {
+      "expected": 15717,
+      "actual": 15717,
+      "measure": "orders",
+      "passed": true,
+      "context": "2011|United Kingdom"
+    },
+    {
+      "expected": 185266.58,
+      "actual": 185266.58,
+      "measure": "gross",
+      "passed": true,
+      "context": "2011|Germany"
+    },
+    {
+      "expected": 3921.72,
+      "actual": 3921.72,
+      "measure": "cancellations",
+      "passed": true,
+      "context": "2011|Germany"
+    },
+    {
+      "expected": 181344.86,
+      "actual": 181344.86,
+      "measure": "net",
+      "passed": true,
+      "context": "2011|Germany"
+    },
+    {
+      "expected": 397,
+      "actual": 397,
+      "measure": "orders",
+      "passed": true,
+      "context": "2011|Germany"
+    }
+  ]
+}
