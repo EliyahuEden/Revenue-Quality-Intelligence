@@ -41,16 +41,26 @@ for name in names:
         'lineageTag':str(uuid.uuid5(uuid.NAMESPACE_URL,name))}
  if name=='dim_date':table['dataCategory']='Time'
  if name=='fact_order':table['isHidden']=True
+ if name=='dim_date':
+  table['columns'].append({'name':'Month','dataType':'string','type':'calculated','expression':'FORMAT ( dim_date[date_key], "MMM" )','sortByColumn':'month_number','summarizeBy':'none'})
+ if name=='cohort_retention':
+  table['columns'].append({'name':'Cohort Year','dataType':'int64','type':'calculated','expression':'YEAR ( cohort_retention[cohort_month] )','summarizeBy':'none'})
+ if name=='dim_product':
+  labels={'22423':'Regency cake stand','47566':'Party bunting','85123A':'Cream heart tealight','85099B':'Red retrospot jumbo bag','23084':'Rabbit night light','84879':'Bird ornaments','22502':'Small wicker picnic basket','22086':'Christmas paper chains','79321':'Chilli lights','22197':'Popcorn holder'}
+  expression='SWITCH ( dim_product[product_key], '+', '.join('"'+k+'", "'+v+'"' for k,v in labels.items())+', dim_product[product_name] )'
+  table['columns'].append({'name':'Product label','dataType':'string','type':'calculated','expression':expression,'summarizeBy':'none'})
  tables.append(table)
 text=(P/'dax_measures/measures.dax').read_text(encoding='utf-8');text=re.sub(r'(?m)^//.*\n?','',text)
-matches=list(re.finditer(r'(?m)^(?!VAR\b)([A-Za-z][^\n=]*?)\s*=\s*',text));measures=[]
+matches=list(re.finditer(r'(?m)^(?!VAR\b)([A-Za-z][A-Za-z0-9 ]*?)\s*=\s*',text));measures=[]
 for i,m in enumerate(matches):
  name=m.group(1).strip();expression=text[m.end():matches[i+1].start() if i+1<len(matches) else len(text)].strip()
  fmt='0.0%' if any(x in name for x in ['Ratio','Share','Rate','Growth']) else '£#,0.00;(£#,0.00)' if 'GBP' in name else '#,0'
  measure={'name':name,'expression':expression.splitlines(),'formatString':fmt,'displayFolder':'Financial performance' if any(x in name for x in ['GBP','Invoices','Ratio','Share']) else 'Customer continuity'}
  if 'Title' in name:measure.pop('formatString')
+ if name in ['Net Comparison Growth','Invoice Comparison Growth','Basket Comparison Growth']:measure['formatString']='+0.0%;-0.0%;0.0%'
+ if name=='Cancellation Change Points':measure['formatString']='+0.0" pp";-0.0" pp";0.0" pp"'
  measures.append(measure)
-assert len(measures)==25 and all(not m['name'].startswith('VAR ') and m['expression'] for m in measures), 'Invalid DAX source parsing'
+assert len(measures)==45 and all(not m['name'].startswith('VAR ') and m['expression'] for m in measures), 'Invalid DAX source parsing'
 tables[names.index('fact_invoice_line')]['measures']=measures
 relationships=[]
 for fact in ['fact_invoice_line','fact_order']:

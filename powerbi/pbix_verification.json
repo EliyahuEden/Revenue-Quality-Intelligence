@@ -1,10 +1,11 @@
 {
   "file": "RevenueQuality.pbix",
-  "bytes": 23529362,
-  "sha256": "3e7a6b80c8099e45ba5e83aef13f21b70635f21685cbc335f372c53e9f72a1fa",
+  "bytes": 23592977,
+  "sha256": "2d655a7118ffd10ebb4350ba9d924a48f65a54adae8209e82ec299efbb196938",
   "page_count": 5,
-  "visual_count": 119,
+  "visual_count": 91,
   "embedded_model": true,
   "archive_integrity_passed": true,
-  "saved_by": "Microsoft Power BI Desktop"
+  "saved_by": "Microsoft Power BI Desktop",
+  "version": "Management redesign 2026-10-22"
 }

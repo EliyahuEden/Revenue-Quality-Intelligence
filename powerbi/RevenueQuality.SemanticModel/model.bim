@@ -61,6 +61,14 @@
             "sourceColumn": "is_complete_period",
             "summarizeBy": "none",
             "lineageTag": "ef3b4a40-a440-5dc0-a54b-a276f1dedc0e"
+          },
+          {
+            "name": "Month",
+            "dataType": "string",
+            "type": "calculated",
+            "expression": "FORMAT ( dim_date[date_key], \"MMM\" )",
+            "sortByColumn": "month_number",
+            "summarizeBy": "none"
           }
         ],
         "partitions": [
@@ -163,6 +171,13 @@
             "sourceColumn": "description_variants",
             "summarizeBy": "none",
             "lineageTag": "af94af19-d234-5ed3-bf24-e31612e2c42b"
+          },
+          {
+            "name": "Product label",
+            "dataType": "string",
+            "type": "calculated",
+            "expression": "SWITCH ( dim_product[product_key], \"22423\", \"Regency cake stand\", \"47566\", \"Party bunting\", \"85123A\", \"Cream heart tealight\", \"85099B\", \"Red retrospot jumbo bag\", \"23084\", \"Rabbit night light\", \"84879\", \"Bird ornaments\", \"22502\", \"Small wicker picnic basket\", \"22086\", \"Christmas paper chains\", \"79321\", \"Chilli lights\", \"22197\", \"Popcorn holder\", dim_product[product_name] )",
+            "summarizeBy": "none"
           }
         ],
         "partitions": [
@@ -515,8 +530,7 @@
             "name": "Cohort Eligible Buyers",
             "expression": [
               "IF ( HASONEVALUE ( cohort_retention[month_age] ),",
-              "    SUMX ( VALUES ( cohort_retention[cohort_month] ),",
-              "        CALCULATE ( MAX ( cohort_retention[cohort_size] ) ) ) )"
+              "    SUM ( cohort_retention[cohort_size] ) )"
             ],
             "formatString": "#,0",
             "displayFolder": "Customer continuity"
@@ -568,6 +582,166 @@
             "expression": [
               "\"Merchandise value | \" & SELECTEDVALUE ( dim_country[country_key], \"Multiple / all markets\" )"
             ],
+            "displayFolder": "Customer continuity"
+          },
+          {
+            "name": "Net 2010 GBP",
+            "expression": [
+              "CALCULATE ( [Net Merchandise GBP], REMOVEFILTERS ( dim_date[calendar_year] ), dim_date[calendar_year] = 2010, KEEPFILTERS ( dim_date[month_number] <= 11 ) )"
+            ],
+            "formatString": "\u00a3#,0.00;(\u00a3#,0.00)",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Gross 2010 GBP",
+            "expression": [
+              "CALCULATE ( [Gross Sales GBP], REMOVEFILTERS ( dim_date[calendar_year] ), dim_date[calendar_year] = 2010, KEEPFILTERS ( dim_date[month_number] <= 11 ) )"
+            ],
+            "formatString": "\u00a3#,0.00;(\u00a3#,0.00)",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Cancellations 2010 GBP",
+            "expression": [
+              "CALCULATE ( [Cancellation Postings GBP], REMOVEFILTERS ( dim_date[calendar_year] ), dim_date[calendar_year] = 2010, KEEPFILTERS ( dim_date[month_number] <= 11 ) )"
+            ],
+            "formatString": "\u00a3#,0.00;(\u00a3#,0.00)",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Invoices 2010",
+            "expression": [
+              "CALCULATE ( [Sale Invoices], REMOVEFILTERS ( dim_date[calendar_year] ), dim_date[calendar_year] = 2010, KEEPFILTERS ( dim_date[month_number] <= 11 ) )"
+            ],
+            "formatString": "#,0",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Net 2011 GBP",
+            "expression": [
+              "CALCULATE ( [Net Merchandise GBP], REMOVEFILTERS ( dim_date[calendar_year] ), dim_date[calendar_year] = 2011, KEEPFILTERS ( dim_date[month_number] <= 11 ) )"
+            ],
+            "formatString": "\u00a3#,0.00;(\u00a3#,0.00)",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Gross 2011 GBP",
+            "expression": [
+              "CALCULATE ( [Gross Sales GBP], REMOVEFILTERS ( dim_date[calendar_year] ), dim_date[calendar_year] = 2011, KEEPFILTERS ( dim_date[month_number] <= 11 ) )"
+            ],
+            "formatString": "\u00a3#,0.00;(\u00a3#,0.00)",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Cancellations 2011 GBP",
+            "expression": [
+              "CALCULATE ( [Cancellation Postings GBP], REMOVEFILTERS ( dim_date[calendar_year] ), dim_date[calendar_year] = 2011, KEEPFILTERS ( dim_date[month_number] <= 11 ) )"
+            ],
+            "formatString": "\u00a3#,0.00;(\u00a3#,0.00)",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Invoices 2011",
+            "expression": [
+              "CALCULATE ( [Sale Invoices], REMOVEFILTERS ( dim_date[calendar_year] ), dim_date[calendar_year] = 2011, KEEPFILTERS ( dim_date[month_number] <= 11 ) )"
+            ],
+            "formatString": "#,0",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Net Change GBP",
+            "expression": [
+              "[Net 2011 GBP] - [Net 2010 GBP]"
+            ],
+            "formatString": "\u00a3#,0.00;(\u00a3#,0.00)",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Net Comparison Growth",
+            "expression": [
+              "DIVIDE ( [Net Change GBP], [Net 2010 GBP] )"
+            ],
+            "formatString": "+0.0%;-0.0%;0.0%",
+            "displayFolder": "Customer continuity"
+          },
+          {
+            "name": "Invoice Comparison Growth",
+            "expression": [
+              "DIVIDE ( [Invoices 2011] - [Invoices 2010], [Invoices 2010] )"
+            ],
+            "formatString": "+0.0%;-0.0%;0.0%",
+            "displayFolder": "Customer continuity"
+          },
+          {
+            "name": "Basket 2010 GBP",
+            "expression": [
+              "DIVIDE ( [Gross 2010 GBP], [Invoices 2010] )"
+            ],
+            "formatString": "\u00a3#,0.00;(\u00a3#,0.00)",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Cancellation 2010 Ratio",
+            "expression": [
+              "DIVIDE ( [Cancellations 2010 GBP], [Gross 2010 GBP] )"
+            ],
+            "formatString": "0.0%",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Basket 2011 GBP",
+            "expression": [
+              "DIVIDE ( [Gross 2011 GBP], [Invoices 2011] )"
+            ],
+            "formatString": "\u00a3#,0.00;(\u00a3#,0.00)",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Cancellation 2011 Ratio",
+            "expression": [
+              "DIVIDE ( [Cancellations 2011 GBP], [Gross 2011 GBP] )"
+            ],
+            "formatString": "0.0%",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Basket Comparison Growth",
+            "expression": [
+              "DIVIDE ( [Basket 2011 GBP] - [Basket 2010 GBP], [Basket 2010 GBP] )"
+            ],
+            "formatString": "+0.0%;-0.0%;0.0%",
+            "displayFolder": "Customer continuity"
+          },
+          {
+            "name": "Cancellation Change Points",
+            "expression": [
+              "100 * ( [Cancellation 2011 Ratio] - [Cancellation 2010 Ratio] )"
+            ],
+            "formatString": "+0.0\" pp\";-0.0\" pp\";0.0\" pp\"",
+            "displayFolder": "Customer continuity"
+          },
+          {
+            "name": "Anonymous 2011 Share",
+            "expression": [
+              "CALCULATE ( [Anonymous Gross Share], REMOVEFILTERS ( dim_date[calendar_year] ), dim_date[calendar_year] = 2011, KEEPFILTERS ( dim_date[month_number] <= 11 ) )"
+            ],
+            "formatString": "0.0%",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Duplicate 2011 GBP",
+            "expression": [
+              "CALCULATE ( [Duplicate Sensitivity GBP], REMOVEFILTERS ( dim_date[calendar_year] ), dim_date[calendar_year] = 2011, KEEPFILTERS ( dim_date[month_number] <= 11 ) )"
+            ],
+            "formatString": "\u00a3#,0.00;(\u00a3#,0.00)",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Product Net 2011 Rank",
+            "expression": [
+              "RANKX ( ALLSELECTED ( dim_product ), [Net 2011 GBP], , DESC, DENSE )"
+            ],
+            "formatString": "#,0",
             "displayFolder": "Customer continuity"
           }
         ]
@@ -1010,6 +1184,13 @@
             "sourceColumn": "retention_rate",
             "summarizeBy": "none",
             "lineageTag": "95b0f3b6-63e2-580d-9013-3ebfc995777e"
+          },
+          {
+            "name": "Cohort Year",
+            "dataType": "int64",
+            "type": "calculated",
+            "expression": "YEAR ( cohort_retention[cohort_month] )",
+            "summarizeBy": "none"
           }
         ],
         "partitions": [

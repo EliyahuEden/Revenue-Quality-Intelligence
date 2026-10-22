@@ -26,10 +26,10 @@ A retail analytics portfolio case study using **SQL, Python and Power BI** to in
 | SQL modelling | Created facts, dimensions, lifecycle, segments and cohort marts in DuckDB | [Transformations](sql/transformations/), [model](docs/data_dictionary.md) |
 | Analysis | Wrote 24 SQL analyses using joins, CTEs, windows, cohorts, concentration and basket affinity | [Queries](sql/advanced_analysis/), [results](reports/query_results/) |
 | Python | Automated ingestion, quality checks, exports and descriptive statistical intervals | [Scripts](scripts/), [tests](tests/) |
-| Power BI | Built typed Power Query imports, seven relationships, 25 DAX measures and five native pages | [Project source](powerbi/RevenueQuality.pbip), [validation](powerbi/validation.md) |
+| Power BI | Built typed Power Query imports, seven relationships, 45 DAX measures and five native pages | [Project source](powerbi/RevenueQuality.pbip), [validation](powerbi/validation.md) |
 | Communication | Converted evidence into practical, qualified recommendations | [Recommendations](docs/recommendations.md) |
 
-The report answers five questions: how much sales value remains after cancellations; whether customers buy again; which products drive value; whether the numbers can be trusted; and what to do next. Native visuals include an area chart, ranked product bars, a cohort heatmap and a gross-to-net calculation. Finance visuals support filtering; the customer page clearly labels its fixed snapshot.
+The report answers five questions: how much sales value remains after cancellations; whether customers buy again; which products drive value; whether the numbers can be trusted; and what to do next. The overview compares Jan-Nov 2011 with the same months in 2010 using four comparative KPIs, monthly sales and cancellation charts, market changes and leading products. The customer grid uses larger cells for 2011 cohorts and six later months. Finance visuals support filtering; the customer page clearly labels its fixed snapshot.
 
 ## Open the report
 
@@ -58,3 +58,7 @@ On macOS/Linux use `.venv/bin/python`. The pipeline downloads and checksum-verif
 Complete-month reporting covers December 2009–November 2011. Net merchandise value is a sales-posting metric, not profit. Cancellations cannot be reliably matched to original sales. First observed is not necessarily first-ever purchase. Missing IDs remain in finance totals and are excluded from cohorts. Associations are descriptive, not causal.
 
 Chen, D. (2012). *Online Retail II*, UCI Machine Learning Repository. [Dataset/DOI](https://doi.org/10.24432/C5CG6D), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Data was transformed, pseudonymized and aggregated. [Data license](DATA_LICENSE.md); code: [MIT](LICENSE).
+
+## Reading the dashboard
+
+The management pages focus on Jan-Nov 2011; the historical findings above cover Dec 2009-Nov 2011. [Dashboard guide and metric definitions](docs/dashboard_guide.md). The Forest and Linen visual theme is a custom portfolio identity; the source does not identify the retailer.

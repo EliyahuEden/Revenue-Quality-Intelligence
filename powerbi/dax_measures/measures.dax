@@ -70,8 +70,8 @@ IF ( HASONEVALUE ( cohort_retention[month_age] ), SUM ( cohort_retention[active_
 
 Cohort Eligible Buyers =
 IF ( HASONEVALUE ( cohort_retention[month_age] ),
-    SUMX ( VALUES ( cohort_retention[cohort_month] ),
-        CALCULATE ( MAX ( cohort_retention[cohort_size] ) ) ) )
+    SUM ( cohort_retention[cohort_size] ) )
+
 
 Purchase Retention Rate = DIVIDE ( [Cohort Active Buyers], [Cohort Eligible Buyers] )
 
@@ -89,3 +89,64 @@ CALCULATE ( SUM ( fact_invoice_line[amount_pence] ) / 100,
 Duplicate Sensitivity GBP = [Net Merchandise GBP] - [Net Deduplicated Scenario GBP]
 
 Selected Market Title = "Merchandise value | " & SELECTEDVALUE ( dim_country[country_key], "Multiple / all markets" )
+
+// Management comparison: Jan-Nov in both years; country and month filters remain active.
+Net 2010 GBP =
+CALCULATE ( [Net Merchandise GBP], REMOVEFILTERS ( dim_date[calendar_year] ), dim_date[calendar_year] = 2010, KEEPFILTERS ( dim_date[month_number] <= 11 ) )
+
+Gross 2010 GBP =
+CALCULATE ( [Gross Sales GBP], REMOVEFILTERS ( dim_date[calendar_year] ), dim_date[calendar_year] = 2010, KEEPFILTERS ( dim_date[month_number] <= 11 ) )
+
+Cancellations 2010 GBP =
+CALCULATE ( [Cancellation Postings GBP], REMOVEFILTERS ( dim_date[calendar_year] ), dim_date[calendar_year] = 2010, KEEPFILTERS ( dim_date[month_number] <= 11 ) )
+
+Invoices 2010 =
+CALCULATE ( [Sale Invoices], REMOVEFILTERS ( dim_date[calendar_year] ), dim_date[calendar_year] = 2010, KEEPFILTERS ( dim_date[month_number] <= 11 ) )
+
+Net 2011 GBP =
+CALCULATE ( [Net Merchandise GBP], REMOVEFILTERS ( dim_date[calendar_year] ), dim_date[calendar_year] = 2011, KEEPFILTERS ( dim_date[month_number] <= 11 ) )
+
+Gross 2011 GBP =
+CALCULATE ( [Gross Sales GBP], REMOVEFILTERS ( dim_date[calendar_year] ), dim_date[calendar_year] = 2011, KEEPFILTERS ( dim_date[month_number] <= 11 ) )
+
+Cancellations 2011 GBP =
+CALCULATE ( [Cancellation Postings GBP], REMOVEFILTERS ( dim_date[calendar_year] ), dim_date[calendar_year] = 2011, KEEPFILTERS ( dim_date[month_number] <= 11 ) )
+
+Invoices 2011 =
+CALCULATE ( [Sale Invoices], REMOVEFILTERS ( dim_date[calendar_year] ), dim_date[calendar_year] = 2011, KEEPFILTERS ( dim_date[month_number] <= 11 ) )
+
+Net Change GBP =
+[Net 2011 GBP] - [Net 2010 GBP]
+
+Net Comparison Growth =
+DIVIDE ( [Net Change GBP], [Net 2010 GBP] )
+
+Invoice Comparison Growth =
+DIVIDE ( [Invoices 2011] - [Invoices 2010], [Invoices 2010] )
+
+Basket 2010 GBP =
+DIVIDE ( [Gross 2010 GBP], [Invoices 2010] )
+
+Cancellation 2010 Ratio =
+DIVIDE ( [Cancellations 2010 GBP], [Gross 2010 GBP] )
+
+Basket 2011 GBP =
+DIVIDE ( [Gross 2011 GBP], [Invoices 2011] )
+
+Cancellation 2011 Ratio =
+DIVIDE ( [Cancellations 2011 GBP], [Gross 2011 GBP] )
+
+Basket Comparison Growth =
+DIVIDE ( [Basket 2011 GBP] - [Basket 2010 GBP], [Basket 2010 GBP] )
+
+Cancellation Change Points =
+100 * ( [Cancellation 2011 Ratio] - [Cancellation 2010 Ratio] )
+
+Anonymous 2011 Share =
+CALCULATE ( [Anonymous Gross Share], REMOVEFILTERS ( dim_date[calendar_year] ), dim_date[calendar_year] = 2011, KEEPFILTERS ( dim_date[month_number] <= 11 ) )
+
+Duplicate 2011 GBP =
+CALCULATE ( [Duplicate Sensitivity GBP], REMOVEFILTERS ( dim_date[calendar_year] ), dim_date[calendar_year] = 2011, KEEPFILTERS ( dim_date[month_number] <= 11 ) )
+
+Product Net 2011 Rank =
+RANKX ( ALLSELECTED ( dim_product ), [Net 2011 GBP], , DESC, DENSE )

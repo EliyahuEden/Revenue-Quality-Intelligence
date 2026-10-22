@@ -1,31 +1,30 @@
 {
-  "name": "Revenue Quality | Editorial",
+  "name": "Retail | Forest and Linen",
   "dataColors": [
-    "#008C82",
-    "#526AD4",
-    "#D86B4D",
-    "#91C9C3",
-    "#B4BDEA",
-    "#E9BEA9"
+    "#26745B",
+    "#A2B3A0",
+    "#C46635",
+    "#D7AE83",
+    "#668D7D"
   ],
-  "background": "#F3F5FA",
-  "foreground": "#23344D",
-  "tableAccent": "#008C82",
+  "background": "#F3F1E9",
+  "foreground": "#243D35",
+  "tableAccent": "#26745B",
   "textClasses": {
     "title": {
       "fontFace": "Segoe UI Semibold",
-      "fontSize": 14,
-      "color": "#23344D"
+      "fontSize": 15,
+      "color": "#243D35"
     },
     "label": {
       "fontFace": "Segoe UI",
-      "fontSize": 10,
-      "color": "#64748B"
+      "fontSize": 12,
+      "color": "#65756B"
     },
     "callout": {
       "fontFace": "Segoe UI Semibold",
-      "fontSize": 36,
-      "color": "#23344D"
+      "fontSize": 38,
+      "color": "#173F35"
     }
   }
 }
