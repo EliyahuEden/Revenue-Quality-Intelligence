@@ -6,8 +6,8 @@
     "y": 158,
     "width": 496,
     "height": 118,
-    "z": 46,
-    "tabOrder": 46
+    "z": 72,
+    "tabOrder": 72
   },
   "visual": {
     "visualType": "card",
@@ -113,7 +113,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Net merchandise value'"
+                  "Value": "'Net merchandise value | 2011'"
                 }
               }
             },

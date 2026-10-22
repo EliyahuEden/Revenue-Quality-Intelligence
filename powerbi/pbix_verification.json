@@ -1,11 +1,21 @@
 {
   "file": "RevenueQuality.pbix",
-  "bytes": 23592977,
-  "sha256": "2d655a7118ffd10ebb4350ba9d924a48f65a54adae8209e82ec299efbb196938",
-  "page_count": 5,
+  "bytes": 23660062,
+  "sha256": "e8bfdc6160702ec313a748b18c28222ab5caca91fcc53bfd73e3598d0cf2a0c3",
+  "page_count": 6,
   "visual_count": 91,
   "embedded_model": true,
   "archive_integrity_passed": true,
   "saved_by": "Microsoft Power BI Desktop",
-  "version": "Management redesign 2026-10-22"
+  "version": "Research-based decision report 2026-10-22",
+  "native_visual_types": [
+    "card",
+    "clusteredBarChart",
+    "clusteredColumnChart",
+    "lineChart",
+    "pivotTable",
+    "slicer",
+    "tableEx",
+    "textbox"
+  ]
 }

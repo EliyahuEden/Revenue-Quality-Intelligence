@@ -6,8 +6,8 @@
     "y": 30,
     "width": 1100,
     "height": 67,
-    "z": 53,
-    "tabOrder": 53
+    "z": 80,
+    "tabOrder": 80
   },
   "visual": {
     "visualType": "textbox",
@@ -86,7 +86,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Sales quality",
+                    "value": "Where is cancellation value concentrated?",
                     "textStyle": {
                       "fontFamily": "Segoe UI Semibold",
                       "fontSize": "28pt",

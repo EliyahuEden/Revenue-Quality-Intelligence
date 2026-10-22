@@ -8,7 +8,7 @@ A retail analytics portfolio case study using **SQL, Python and Power BI** to in
 
 ![Power BI executive overview](powerbi/screenshots/01_executive.png)
 
-## Findings
+## Full-history findings | Dec 2009-Nov 2011
 
 - **£18.54m net merchandise value:** £19.08m gross sales less £545,530 cancellation postings.
 - **41.3% 90-day repeat rate:** 1,458 of 3,533 eligible identified buyers with fully observed follow-up.
@@ -26,16 +26,17 @@ A retail analytics portfolio case study using **SQL, Python and Power BI** to in
 | SQL modelling | Created facts, dimensions, lifecycle, segments and cohort marts in DuckDB | [Transformations](sql/transformations/), [model](docs/data_dictionary.md) |
 | Analysis | Wrote 24 SQL analyses using joins, CTEs, windows, cohorts, concentration and basket affinity | [Queries](sql/advanced_analysis/), [results](reports/query_results/) |
 | Python | Automated ingestion, quality checks, exports and descriptive statistical intervals | [Scripts](scripts/), [tests](tests/) |
-| Power BI | Built typed Power Query imports, seven relationships, 45 DAX measures and five native pages | [Project source](powerbi/RevenueQuality.pbip), [validation](powerbi/validation.md) |
+| Power BI | Built typed Power Query imports, seven relationships, 69 DAX measures and six native pages | [Project source](powerbi/RevenueQuality.pbip), [validation](powerbi/validation.md) |
 | Communication | Converted evidence into practical, qualified recommendations | [Recommendations](docs/recommendations.md) |
 
-The report answers five questions: how much sales value remains after cancellations; whether customers buy again; which products drive value; whether the numbers can be trusted; and what to do next. The overview compares Jan-Nov 2011 with the same months in 2010 using four comparative KPIs, monthly sales and cancellation charts, market changes and leading products. The customer grid uses larger cells for 2011 cohorts and six later months. Finance visuals support filtering; the customer page clearly labels its fixed snapshot.
+The six native pages cover Executive, Markets, Customer Value, Repeat Buying, Products and Cancellations. The overview adds an exact growth decomposition; detail pages expose customer concentration, dormant-account historical value, product gains/declines and cancellation exposure across the full assortment. [Research and design rationale](docs/dashboard_research.md) maps nine primary sources and the available fields to management decisions. [Reading guide](docs/dashboard_guide.md).
+
 
 ## Open the report
 
 Open **`powerbi/RevenueQuality.pbix` in Power BI Desktop**. Its imported data is included, so viewing does not require running Python. Open `powerbi/RevenueQuality.pbip` for editable text sources. [Refresh instructions](powerbi/README.md).
 
-The native five-page report has been verified in Desktop. The portable PBIX includes its imported model; the editable PBIP is also included.
+The native six-page report has been verified in Desktop. The portable PBIX includes its imported model; the editable PBIP is also included.
 
 GitHub displays documentation and screenshots; download the PBIX and open it in Desktop to interact with it. No Power BI Service deployment is included.
 

@@ -6,8 +6,8 @@
     "y": 30,
     "width": 1100,
     "height": 67,
-    "z": 41,
-    "tabOrder": 41
+    "z": 67,
+    "tabOrder": 67
   },
   "visual": {
     "visualType": "textbox",
@@ -86,7 +86,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Product performance",
+                    "value": "Which products gained or lost sales?",
                     "textStyle": {
                       "fontFamily": "Segoe UI Semibold",
                       "fontSize": "28pt",

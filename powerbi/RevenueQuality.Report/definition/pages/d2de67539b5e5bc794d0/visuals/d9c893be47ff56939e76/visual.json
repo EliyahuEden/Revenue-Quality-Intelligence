@@ -3,11 +3,11 @@
   "name": "d9c893be47ff56939e76",
   "position": {
     "x": 32,
-    "y": 805,
+    "y": 830,
     "width": 1536,
-    "height": 43,
-    "z": 38,
-    "tabOrder": 38
+    "height": 38.5,
+    "z": 52,
+    "tabOrder": 52
   },
   "visual": {
     "visualType": "textbox",
@@ -28,7 +28,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#E3EADF'"
+                      "Value": "'#F3F1E9'"
                     }
                   }
                 }
@@ -86,11 +86,11 @@
               {
                 "textRuns": [
                   {
-                    "value": "GRID KEY  /  Darker = more customers bought again   /   Blank = not yet observable",
+                    "value": "Established = at least 5 invoices. Dormant = last purchase >90 days ago. Past purchases are not forecast recoverable revenue.",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "13pt",
-                      "color": "#173F35"
+                      "fontSize": "11pt",
+                      "color": "#65756B"
                     }
                   }
                 ]

@@ -3,9 +3,9 @@
   "name": "fe572368ea5254e0979b",
   "position": {
     "x": 32,
-    "y": 304,
-    "width": 970,
-    "height": 265,
+    "y": 309,
+    "width": 914,
+    "height": 270,
     "z": 23,
     "tabOrder": 23
   },
@@ -164,8 +164,13 @@
             },
             "text": {
               "expr": {
-                "Literal": {
-                  "Value": "'Net sales | monthly comparison'"
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_invoice_line"
+                    }
+                  },
+                  "Property": "Sales Trend Title"
                 }
               }
             },
@@ -314,6 +319,13 @@
               "expr": {
                 "Literal": {
                   "Value": "12D"
+                }
+              }
+            },
+            "labelPosition": {
+              "expr": {
+                "Literal": {
+                  "Value": "'OutsideEnd'"
                 }
               }
             }

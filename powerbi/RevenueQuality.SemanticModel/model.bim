@@ -176,7 +176,7 @@
             "name": "Product label",
             "dataType": "string",
             "type": "calculated",
-            "expression": "SWITCH ( dim_product[product_key], \"22423\", \"Regency cake stand\", \"47566\", \"Party bunting\", \"85123A\", \"Cream heart tealight\", \"85099B\", \"Red retrospot jumbo bag\", \"23084\", \"Rabbit night light\", \"84879\", \"Bird ornaments\", \"22502\", \"Small wicker picnic basket\", \"22086\", \"Christmas paper chains\", \"79321\", \"Chilli lights\", \"22197\", \"Popcorn holder\", dim_product[product_name] )",
+            "expression": "SWITCH ( dim_product[product_key], \"22423\", \"Regency cake stand\", \"47566\", \"Party bunting\", \"85123A\", \"Cream heart tealight\", \"85099B\", \"Red retrospot jumbo bag\", \"23084\", \"Rabbit night light\", \"84879\", \"Bird ornaments\", \"22502\", \"Small wicker picnic basket\", \"22086\", \"Christmas paper chains\", \"79321\", \"Chilli lights\", \"22197\", \"Popcorn holder\", \"23298\", \"Spotty bunting\", \"23203\", \"Vintage doily jumbo bag\", \"23284\", \"Keep calm doormat\", \"84347\", \"Silver angel tealight\", \"37503\", \"Gift-box cake stand\", \"21843\", \"Red retrospot cake stand\", \"48138\", \"Union flag doormat\", \"23166\", \"Ceramic storage jar\", \"21108\", \"Fairy cake flannel\", \"23113\", \"Pantry chopping board\", \"48185\", \"Fairy cake doormat\", LEFT ( dim_product[product_name], 25 ) ) & \" | \" & dim_product[product_key]",
             "summarizeBy": "none"
           }
         ],
@@ -653,7 +653,7 @@
             "expression": [
               "[Net 2011 GBP] - [Net 2010 GBP]"
             ],
-            "formatString": "\u00a3#,0.00;(\u00a3#,0.00)",
+            "formatString": "+\u00a3#,0.00;-\u00a3#,0.00;\u00a30.00",
             "displayFolder": "Financial performance"
           },
           {
@@ -742,6 +742,200 @@
               "RANKX ( ALLSELECTED ( dim_product ), [Net 2011 GBP], , DESC, DENSE )"
             ],
             "formatString": "#,0",
+            "displayFolder": "Customer continuity"
+          },
+          {
+            "name": "Invoice Volume Effect GBP",
+            "expression": [
+              "( [Invoices 2011] - [Invoices 2010] ) * [Basket 2010 GBP]"
+            ],
+            "formatString": "+\u00a3#,0.00;-\u00a3#,0.00;\u00a30.00",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Invoice Value Effect GBP",
+            "expression": [
+              "[Invoices 2011] * ( [Basket 2011 GBP] - [Basket 2010 GBP] )"
+            ],
+            "formatString": "+\u00a3#,0.00;-\u00a3#,0.00;\u00a30.00",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Cancellation Effect GBP",
+            "expression": [
+              "[Cancellations 2010 GBP] - [Cancellations 2011 GBP]"
+            ],
+            "formatString": "+\u00a3#,0.00;-\u00a3#,0.00;\u00a30.00",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Driver Contribution GBP",
+            "expression": [
+              "SWITCH ( SELECTEDVALUE ( growth_driver[driver] ), \"Invoices\", [Invoice Volume Effect GBP], \"Gross / invoice\", [Invoice Value Effect GBP], \"Cancellations\", [Cancellation Effect GBP] )"
+            ],
+            "formatString": "+\u00a3#,0.00;-\u00a3#,0.00;\u00a30.00",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Driver Gain GBP",
+            "expression": [
+              "IF ( [Driver Contribution GBP] >= 0, [Driver Contribution GBP] )"
+            ],
+            "formatString": "+\u00a3#,0.00;-\u00a3#,0.00;\u00a30.00",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Driver Decline GBP",
+            "expression": [
+              "IF ( [Driver Contribution GBP] < 0, [Driver Contribution GBP] )"
+            ],
+            "formatString": "+\u00a3#,0.00;-\u00a3#,0.00;\u00a30.00",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Bridge Check GBP",
+            "expression": [
+              "[Invoice Volume Effect GBP] + [Invoice Value Effect GBP] + [Cancellation Effect GBP] - [Net Change GBP]"
+            ],
+            "formatString": "\u00a3#,0.00;(\u00a3#,0.00)",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Absolute Market Change Rank",
+            "expression": [
+              "RANKX ( ALLSELECTED ( dim_country[country_key] ), ABS ( [Net Change GBP] ), , DESC, DENSE )"
+            ],
+            "formatString": "#,0",
+            "displayFolder": "Customer continuity"
+          },
+          {
+            "name": "Net Gain GBP",
+            "expression": [
+              "IF ( [Net Change GBP] > 0, [Net Change GBP] )"
+            ],
+            "formatString": "+\u00a3#,0.00;-\u00a3#,0.00;\u00a30.00",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Net Decline GBP",
+            "expression": [
+              "IF ( [Net Change GBP] < 0, [Net Change GBP] )"
+            ],
+            "formatString": "+\u00a3#,0.00;-\u00a3#,0.00;\u00a30.00",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "UK Gross 2011 Share",
+            "expression": [
+              "DIVIDE ( CALCULATE ( [Gross 2011 GBP], REMOVEFILTERS ( dim_country ), dim_country[country_key] = \"United Kingdom\" ), CALCULATE ( [Gross 2011 GBP], REMOVEFILTERS ( dim_country ) ) )"
+            ],
+            "formatString": "0.0%",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Product Gain Rank",
+            "expression": [
+              "IF ( [Net Change GBP] > 0, RANKX ( ALLSELECTED ( dim_product ), [Net Change GBP], , DESC, DENSE ), 1000000 )"
+            ],
+            "formatString": "#,0",
+            "displayFolder": "Customer continuity"
+          },
+          {
+            "name": "Product Decline Rank",
+            "expression": [
+              "IF ( [Net Change GBP] < 0, RANKX ( ALLSELECTED ( dim_product ), [Net Change GBP], , ASC, DENSE ), 1000000 )"
+            ],
+            "formatString": "#,0",
+            "displayFolder": "Customer continuity"
+          },
+          {
+            "name": "Product Cancellation Rank",
+            "expression": [
+              "IF ( [Cancellations 2011 GBP] > 0, RANKX ( ALLSELECTED ( dim_product ), [Cancellations 2011 GBP], , DESC, DENSE ), 1000000 )"
+            ],
+            "formatString": "#,0",
+            "displayFolder": "Customer continuity"
+          },
+          {
+            "name": "Product Comparison Title",
+            "expression": [
+              "SWITCH ( TRUE (), COALESCE ( [Gross 2010 GBP], 0 ) = 0 && [Gross 2011 GBP] > 0, \"No sales in 2010 comparison window\", COALESCE ( [Gross 2011 GBP], 0 ) = 0 && [Gross 2010 GBP] > 0, \"No sales in 2011 comparison window\", \"Sales observed in both comparison windows\" )"
+            ],
+            "displayFolder": "Customer continuity"
+          },
+          {
+            "name": "Top Decile Gross Share",
+            "expression": [
+              "VAR BuyerCount = COUNTROWS ( ALL ( customer_segments ) )",
+              "VAR BuyerLimit = ROUNDUP ( BuyerCount * 0.1, 0 )",
+              "VAR RankedGross = SUMX ( TOPN ( BuyerLimit, ALL ( customer_segments ), customer_segments[gross_pence], DESC, customer_segments[customer_key], ASC ), customer_segments[gross_pence] )",
+              "RETURN DIVIDE ( RankedGross, CALCULATE ( SUM ( customer_segments[gross_pence] ), REMOVEFILTERS ( customer_segments ) ) )"
+            ],
+            "formatString": "0.0%",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Established Dormant Buyers",
+            "expression": [
+              "CALCULATE ( [Snapshot Customers], customer_segments[segment] = \"Established dormant\" )"
+            ],
+            "formatString": "#,0",
+            "displayFolder": "Customer continuity"
+          },
+          {
+            "name": "Established Dormant Gross GBP",
+            "expression": [
+              "CALCULATE ( [Snapshot Gross GBP], customer_segments[segment] = \"Established dormant\" )"
+            ],
+            "formatString": "\u00a3#,0.00;(\u00a3#,0.00)",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Cumulative Customer Gross Share",
+            "expression": [
+              "VAR Fraction = SELECTEDVALUE ( customer_percentile[buyer_share] )",
+              "VAR BuyerLimit = ROUNDUP ( COUNTROWS ( ALL ( customer_segments ) ) * Fraction, 0 )",
+              "VAR RankedGross = SUMX ( TOPN ( BuyerLimit, ALL ( customer_segments ), customer_segments[gross_pence], DESC, customer_segments[customer_key], ASC ), customer_segments[gross_pence] )",
+              "RETURN IF ( NOT ISBLANK ( Fraction ), DIVIDE ( RankedGross, CALCULATE ( SUM ( customer_segments[gross_pence] ), REMOVEFILTERS ( customer_segments ) ) ) )"
+            ],
+            "formatString": "0.0%",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Equal Customer Share Reference",
+            "expression": [
+              "SELECTEDVALUE ( customer_percentile[buyer_share] )"
+            ],
+            "formatString": "0%",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Segment Gross Share",
+            "expression": [
+              "DIVIDE ( [Snapshot Gross GBP], CALCULATE ( [Snapshot Gross GBP], REMOVEFILTERS ( customer_segments[segment] ) ) )"
+            ],
+            "formatString": "0.0%",
+            "displayFolder": "Financial performance"
+          },
+          {
+            "name": "Sales Trend Title",
+            "expression": [
+              "\"Net value \" & FORMAT ( [Net Comparison Growth], \"+0.0%;-0.0%;0.0%\" ) & \" vs 2010 | monthly GBP\""
+            ],
+            "displayFolder": "Customer continuity"
+          },
+          {
+            "name": "Product SKU Title",
+            "expression": [
+              "SELECTEDVALUE ( dim_product[product_key], \"Multiple SKUs\" )"
+            ],
+            "displayFolder": "Customer continuity"
+          },
+          {
+            "name": "Product Description Title",
+            "expression": [
+              "SELECTEDVALUE ( dim_product[product_name], \"Multiple descriptions\" )"
+            ],
             "displayFolder": "Customer continuity"
           }
         ]
@@ -940,6 +1134,13 @@
             "sourceColumn": "fully_observed_90d",
             "summarizeBy": "none",
             "lineageTag": "8c857e69-9223-52ea-b06e-b6d1e1976b47"
+          },
+          {
+            "name": "Review cohort",
+            "dataType": "int64",
+            "type": "calculated",
+            "expression": "IF ( YEAR ( customer_lifecycle[cohort_month] ) = 2011 && MONTH ( customer_lifecycle[cohort_month] ) <= 8, 1, 0 )",
+            "summarizeBy": "none"
           }
         ],
         "partitions": [
@@ -1161,7 +1362,8 @@
             "dataType": "int64",
             "sourceColumn": "month_age",
             "summarizeBy": "none",
-            "lineageTag": "316e9d41-1105-5e98-8cd2-26b73b12c7fe"
+            "lineageTag": "316e9d41-1105-5e98-8cd2-26b73b12c7fe",
+            "formatString": "\"M+\"0"
           },
           {
             "name": "activity_month",
@@ -1218,6 +1420,59 @@
           }
         ],
         "lineageTag": "63a2817b-5e7d-5885-936a-4c04ac0ac191"
+      },
+      {
+        "name": "growth_driver",
+        "columns": [
+          {
+            "name": "driver",
+            "dataType": "string",
+            "type": "calculatedTableColumn",
+            "sourceColumn": "[driver]",
+            "summarizeBy": "none",
+            "sortByColumn": "sort"
+          },
+          {
+            "name": "sort",
+            "dataType": "int64",
+            "type": "calculatedTableColumn",
+            "sourceColumn": "[sort]",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "growth_driver",
+            "mode": "import",
+            "source": {
+              "type": "calculated",
+              "expression": "DATATABLE ( \"driver\", STRING, \"sort\", INTEGER, { { \"Invoices\", 1 }, { \"Gross / invoice\", 2 }, { \"Cancellations\", 3 } } )"
+            }
+          }
+        ]
+      },
+      {
+        "name": "customer_percentile",
+        "columns": [
+          {
+            "name": "buyer_share",
+            "dataType": "double",
+            "type": "calculatedTableColumn",
+            "sourceColumn": "[buyer_share]",
+            "summarizeBy": "none",
+            "formatString": "0%"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "customer_percentile",
+            "mode": "import",
+            "source": {
+              "type": "calculated",
+              "expression": "DATATABLE ( \"buyer_share\", DOUBLE, { { 0.1 }, { 0.2 }, { 0.3 }, { 0.4 }, { 0.5 }, { 0.6 }, { 0.7 }, { 0.8 }, { 0.9 }, { 1.0 } } )"
+            }
+          }
+        ]
       }
     ],
     "relationships": [

@@ -6,8 +6,8 @@
     "y": 111,
     "width": 1536,
     "height": 40.0,
-    "z": 55,
-    "tabOrder": 55
+    "z": 82,
+    "tabOrder": 82
   },
   "visual": {
     "visualType": "textbox",
@@ -86,7 +86,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "JAN-NOV 2011  /  cancellation postings reduce merchandise value  /  GBP",
+                    "value": "JAN-NOV 2011 vs JAN-NOV 2010  /  postings by their recorded date  /  GBP",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
                       "fontSize": "12pt",

@@ -1,0 +1,611 @@
+{
+  "driver_contexts": [
+    {
+      "country": null,
+      "month": null,
+      "expected": {
+        "Invoice Volume Effect GBP": -319778.3401615312,
+        "Invoice Value Effect GBP": 569646.8001615322,
+        "Cancellation Effect GBP": -65618.68,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": null,
+      "month": 1,
+      "expected": {
+        "Invoice Volume Effect GBP": 18724.868331744517,
+        "Invoice Value Effect GBP": 39365.481668255474,
+        "Cancellation Effect GBP": -84060.67,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": null,
+      "month": 2,
+      "expected": {
+        "Invoice Volume Effect GBP": -43577.746677880576,
+        "Invoice Value Effect GBP": 12718.946677880518,
+        "Cancellation Effect GBP": 4208.519999999999,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": null,
+      "month": 3,
+      "expected": {
+        "Invoice Volume Effect GBP": -96058.74464480874,
+        "Invoice Value Effect GBP": 22897.844644808683,
+        "Cancellation Effect GBP": -1018.0999999999985,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": null,
+      "month": 4,
+      "expected": {
+        "Invoice Volume Effect GBP": -90437.08292682926,
+        "Invoice Value Effect GBP": -42254.07707317072,
+        "Cancellation Effect GBP": -23291.65,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": null,
+      "month": 5,
+      "expected": {
+        "Invoice Volume Effect GBP": 80050.86641509434,
+        "Invoice Value Effect GBP": 15475.253584905699,
+        "Cancellation Effect GBP": 28345.91,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": null,
+      "month": 6,
+      "expected": {
+        "Invoice Volume Effect GBP": -37734.48517369727,
+        "Invoice Value Effect GBP": 77314.05517369721,
+        "Cancellation Effect GBP": 12583.169999999998,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": null,
+      "month": 7,
+      "expected": {
+        "Invoice Volume Effect GBP": -23171.028467153286,
+        "Invoice Value Effect GBP": 77574.70846715326,
+        "Cancellation Effect GBP": 5723.52,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": null,
+      "month": 8,
+      "expected": {
+        "Invoice Volume Effect GBP": -30379.295156918688,
+        "Invoice Value Effect GBP": 79813.18515691876,
+        "Cancellation Effect GBP": -10510.87,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": null,
+      "month": 9,
+      "expected": {
+        "Invoice Volume Effect GBP": 14132.996165455561,
+        "Invoice Value Effect GBP": 144476.12383454439,
+        "Cancellation Effect GBP": 10733.29,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": null,
+      "month": 10,
+      "expected": {
+        "Invoice Volume Effect GBP": -116937.39279411765,
+        "Invoice Value Effect GBP": 125664.55279411758,
+        "Cancellation Effect GBP": -18442.140000000003,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": null,
+      "month": 11,
+      "expected": {
+        "Invoice Volume Effect GBP": 16894.832629643253,
+        "Invoice Value Effect GBP": 5314.597370356413,
+        "Cancellation Effect GBP": 10110.339999999997,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": "United Kingdom",
+      "month": null,
+      "expected": {
+        "Invoice Volume Effect GBP": -434308.2194467065,
+        "Invoice Value Effect GBP": 523458.8394467071,
+        "Cancellation Effect GBP": -86482.54999999999,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": "United Kingdom",
+      "month": 1,
+      "expected": {
+        "Invoice Volume Effect GBP": -6428.650030612245,
+        "Invoice Value Effect GBP": 68956.70003061224,
+        "Cancellation Effect GBP": -83935.34,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": "United Kingdom",
+      "month": 2,
+      "expected": {
+        "Invoice Volume Effect GBP": -41084.94220183486,
+        "Invoice Value Effect GBP": 12176.572201834879,
+        "Cancellation Effect GBP": 2627.5200000000004,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": "United Kingdom",
+      "month": 3,
+      "expected": {
+        "Invoice Volume Effect GBP": -97731.90925196851,
+        "Invoice Value Effect GBP": -436.3307480315041,
+        "Cancellation Effect GBP": -1369.5200000000004,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": "United Kingdom",
+      "month": 4,
+      "expected": {
+        "Invoice Volume Effect GBP": -75633.38945783132,
+        "Invoice Value Effect GBP": -16264.010542168677,
+        "Cancellation Effect GBP": -21252.39,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": "United Kingdom",
+      "month": 5,
+      "expected": {
+        "Invoice Volume Effect GBP": 54867.65577842143,
+        "Invoice Value Effect GBP": 11402.854221578562,
+        "Cancellation Effect GBP": 27506.009999999995,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": "United Kingdom",
+      "month": 6,
+      "expected": {
+        "Invoice Volume Effect GBP": -47551.318396793584,
+        "Invoice Value Effect GBP": 50490.298396793565,
+        "Cancellation Effect GBP": 13251.699999999999,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": "United Kingdom",
+      "month": 7,
+      "expected": {
+        "Invoice Volume Effect GBP": -33477.6622681883,
+        "Invoice Value Effect GBP": 59443.29226818835,
+        "Cancellation Effect GBP": 4081.1900000000005,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": "United Kingdom",
+      "month": 8,
+      "expected": {
+        "Invoice Volume Effect GBP": -48661.0204601227,
+        "Invoice Value Effect GBP": 46453.36046012265,
+        "Cancellation Effect GBP": -5869.15,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": "United Kingdom",
+      "month": 9,
+      "expected": {
+        "Invoice Volume Effect GBP": 1788.4103257529196,
+        "Invoice Value Effect GBP": 148798.21967424703,
+        "Cancellation Effect GBP": -7238.700000000001,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": "United Kingdom",
+      "month": 10,
+      "expected": {
+        "Invoice Volume Effect GBP": -125424.59388942774,
+        "Invoice Value Effect GBP": 92753.35388942779,
+        "Cancellation Effect GBP": -17941.8,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": "United Kingdom",
+      "month": 11,
+      "expected": {
+        "Invoice Volume Effect GBP": -11990.972550898205,
+        "Invoice Value Effect GBP": 46704.70255089811,
+        "Cancellation Effect GBP": 3657.9300000000003,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": "Germany",
+      "month": null,
+      "expected": {
+        "Invoice Volume Effect GBP": 60072.57583617747,
+        "Invoice Value Effect GBP": -44048.92583617748,
+        "Cancellation Effect GBP": -281.9499999999998,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": "Germany",
+      "month": 1,
+      "expected": {
+        "Invoice Volume Effect GBP": 9273.657647058824,
+        "Invoice Value Effect GBP": -5207.687647058826,
+        "Cancellation Effect GBP": 49.10999999999996,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": "Germany",
+      "month": 2,
+      "expected": {
+        "Invoice Volume Effect GBP": -2146.105769230769,
+        "Invoice Value Effect GBP": 2999.9057692307683,
+        "Cancellation Effect GBP": -322.80999999999995,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": "Germany",
+      "month": 3,
+      "expected": {
+        "Invoice Volume Effect GBP": 2273.6414814814816,
+        "Invoice Value Effect GBP": -4758.031481481482,
+        "Cancellation Effect GBP": 98.58000000000001,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": "Germany",
+      "month": 4,
+      "expected": {
+        "Invoice Volume Effect GBP": -5777.928,
+        "Invoice Value Effect GBP": -4894.511999999999,
+        "Cancellation Effect GBP": 53.32000000000002,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": "Germany",
+      "month": 5,
+      "expected": {
+        "Invoice Volume Effect GBP": 11435.802352941177,
+        "Invoice Value Effect GBP": 3982.0376470588235,
+        "Cancellation Effect GBP": 207.6,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": "Germany",
+      "month": 6,
+      "expected": {
+        "Invoice Volume Effect GBP": -1106.4176923076923,
+        "Invoice Value Effect GBP": -1154.9123076923065,
+        "Cancellation Effect GBP": 82.16,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": "Germany",
+      "month": 7,
+      "expected": {
+        "Invoice Volume Effect GBP": 5316.287083333334,
+        "Invoice Value Effect GBP": -8800.257083333336,
+        "Cancellation Effect GBP": -68.88999999999999,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": "Germany",
+      "month": 8,
+      "expected": {
+        "Invoice Volume Effect GBP": 6124.172727272728,
+        "Invoice Value Effect GBP": 2530.4772727272716,
+        "Cancellation Effect GBP": -44.06999999999999,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": "Germany",
+      "month": 9,
+      "expected": {
+        "Invoice Volume Effect GBP": 5223.283870967743,
+        "Invoice Value Effect GBP": -4854.2438709677435,
+        "Cancellation Effect GBP": -5.670000000000016,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": "Germany",
+      "month": 10,
+      "expected": {
+        "Invoice Volume Effect GBP": 12580.525294117648,
+        "Invoice Value Effect GBP": -3600.2352941176505,
+        "Cancellation Effect GBP": 3.930000000000007,
+        "Bridge Check GBP": 0
+      }
+    },
+    {
+      "country": "Germany",
+      "month": 11,
+      "expected": {
+        "Invoice Volume Effect GBP": 17736.224358974356,
+        "Invoice Value Effect GBP": -21152.034358974353,
+        "Cancellation Effect GBP": -335.2099999999999,
+        "Bridge Check GBP": 0
+      }
+    }
+  ],
+  "pareto": [
+    {
+      "fraction": 0.1,
+      "share": 0.6345701893963168
+    },
+    {
+      "fraction": 0.2,
+      "share": 0.7687893947588421
+    },
+    {
+      "fraction": 0.3,
+      "share": 0.8475280868073686
+    },
+    {
+      "fraction": 0.4,
+      "share": 0.898706978489216
+    },
+    {
+      "fraction": 0.5,
+      "share": 0.9342548555458137
+    },
+    {
+      "fraction": 0.6,
+      "share": 0.9594446275617448
+    },
+    {
+      "fraction": 0.7,
+      "share": 0.976712215016603
+    },
+    {
+      "fraction": 0.8,
+      "share": 0.9886573115551514
+    },
+    {
+      "fraction": 0.9,
+      "share": 0.9962841608260127
+    },
+    {
+      "fraction": 1.0,
+      "share": 1.0
+    }
+  ],
+  "fixed": {
+    "Top Decile Gross Share": 0.6345701893963168,
+    "Established Dormant Buyers": 536,
+    "Established Dormant Gross GBP": 1727506.63
+  },
+  "repeat_cohorts": [
+    {
+      "month": "2011-01-01",
+      "eligible": 72,
+      "repeated": 30,
+      "rate": 0.4166666666666667
+    },
+    {
+      "month": "2011-02-01",
+      "eligible": 125,
+      "repeated": 40,
+      "rate": 0.32
+    },
+    {
+      "month": "2011-03-01",
+      "eligible": 179,
+      "repeated": 75,
+      "rate": 0.41899441340782123
+    },
+    {
+      "month": "2011-04-01",
+      "eligible": 106,
+      "repeated": 40,
+      "rate": 0.37735849056603776
+    },
+    {
+      "month": "2011-05-01",
+      "eligible": 111,
+      "repeated": 48,
+      "rate": 0.43243243243243246
+    },
+    {
+      "month": "2011-06-01",
+      "eligible": 108,
+      "repeated": 54,
+      "rate": 0.5
+    },
+    {
+      "month": "2011-07-01",
+      "eligible": 101,
+      "repeated": 56,
+      "rate": 0.5544554455445545
+    },
+    {
+      "month": "2011-08-01",
+      "eligible": 107,
+      "repeated": 53,
+      "rate": 0.4953271028037383
+    }
+  ],
+  "products": {
+    "gains": [
+      {
+        "code": "23084",
+        "name": "RABBIT NIGHT LIGHT",
+        "delta": 57138.58,
+        "cancellation": 183.39
+      },
+      {
+        "code": "47566",
+        "name": "PARTY BUNTING",
+        "delta": 47910.35999999999,
+        "cancellation": 1201.35
+      },
+      {
+        "code": "23298",
+        "name": "SPOTTY BUNTING",
+        "delta": 41935.16,
+        "cancellation": 482.81
+      },
+      {
+        "code": "22502",
+        "name": "PICNIC BASKET WICKER SMALL",
+        "delta": 40461.9,
+        "cancellation": 385.25
+      },
+      {
+        "code": "23203",
+        "name": "JUMBO BAG VINTAGE DOILY",
+        "delta": 39641.88,
+        "cancellation": 1074.32
+      },
+      {
+        "code": "23284",
+        "name": "DOORMAT KEEP CALM AND COME IN",
+        "delta": 35007.17,
+        "cancellation": 1584.75
+      }
+    ],
+    "declines": [
+      {
+        "code": "85123A",
+        "name": "CREAM HANGING HEART T-LIGHT HOLDER",
+        "delta": -47441.56999999999,
+        "cancellation": 5264.95
+      },
+      {
+        "code": "84347",
+        "name": "ROTATING SILVER ANGELS T-LIGHT HLDR",
+        "delta": -23533.75,
+        "cancellation": 17.85
+      },
+      {
+        "code": "37503",
+        "name": "TEA TIME CAKE STAND IN GIFT BOX",
+        "delta": -20707.48,
+        "cancellation": 0.0
+      },
+      {
+        "code": "21843",
+        "name": "RED RETROSPOT CAKE STAND",
+        "delta": -20697.8,
+        "cancellation": 2217.8
+      },
+      {
+        "code": "48138",
+        "name": "DOORMAT UNION FLAG",
+        "delta": -18066.42,
+        "cancellation": 97.5
+      },
+      {
+        "code": "22423",
+        "name": "REGENCY CAKESTAND 3 TIER",
+        "delta": -17789.369999999995,
+        "cancellation": 8646.0
+      }
+    ],
+    "cancellations": [
+      {
+        "code": "23166",
+        "name": "MEDIUM CERAMIC TOP STORAGE JAR",
+        "delta": 3968.57,
+        "cancellation": 77479.64
+      },
+      {
+        "code": "22423",
+        "name": "REGENCY CAKESTAND 3 TIER",
+        "delta": -17789.369999999995,
+        "cancellation": 8646.0
+      },
+      {
+        "code": "21108",
+        "name": "FAIRY CAKE FLANNEL ASSORTED COLOUR",
+        "delta": 4524.529999999999,
+        "cancellation": 6553.62
+      },
+      {
+        "code": "85123A",
+        "name": "CREAM HANGING HEART T-LIGHT HOLDER",
+        "delta": -47441.56999999999,
+        "cancellation": 5264.95
+      },
+      {
+        "code": "23113",
+        "name": "PANTRY CHOPPING BOARD",
+        "delta": 1003.37,
+        "cancellation": 4803.06
+      },
+      {
+        "code": "48185",
+        "name": "DOORMAT FAIRY CAKE",
+        "delta": -529.0299999999988,
+        "cancellation": 4554.9
+      }
+    ]
+  },
+  "markets": [
+    {
+      "country": "Australia",
+      "delta": 106675.5
+    },
+    {
+      "country": "EIRE",
+      "delta": -81105.23000000001
+    },
+    {
+      "country": "France",
+      "delta": 60816.850000000006
+    },
+    {
+      "country": "Denmark",
+      "delta": -27211.249999999996
+    },
+    {
+      "country": "Spain",
+      "delta": 24471.190000000002
+    },
+    {
+      "country": "Japan",
+      "delta": 23295.920000000002
+    },
+    {
+      "country": "Norway",
+      "delta": 20004.73
+    },
+    {
+      "country": "Sweden",
+      "delta": -16411.75
+    }
+  ]
+}

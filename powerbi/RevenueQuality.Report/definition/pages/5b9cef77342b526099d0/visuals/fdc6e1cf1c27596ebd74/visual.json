@@ -3,9 +3,9 @@
   "name": "fdc6e1cf1c27596ebd74",
   "position": {
     "x": 32,
-    "y": 590,
-    "width": 752,
-    "height": 246,
+    "y": 603,
+    "width": 914,
+    "height": 224,
     "z": 25,
     "tabOrder": 25
   },
@@ -49,6 +49,70 @@
               "queryRef": "fact_invoice_line.Net Change GBP",
               "nativeQueryRef": "Net Change GBP",
               "displayName": "Change vs 2010"
+            }
+          ]
+        },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_invoice_line"
+                    }
+                  },
+                  "Property": "Net 2010 GBP"
+                }
+              },
+              "queryRef": "fact_invoice_line.Net 2010 GBP",
+              "nativeQueryRef": "Net 2010 GBP",
+              "displayName": "2010 net | GBP"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_invoice_line"
+                    }
+                  },
+                  "Property": "Net 2011 GBP"
+                }
+              },
+              "queryRef": "fact_invoice_line.Net 2011 GBP",
+              "nativeQueryRef": "Net 2011 GBP",
+              "displayName": "2011 net | GBP"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_invoice_line"
+                    }
+                  },
+                  "Property": "Invoice Comparison Growth"
+                }
+              },
+              "queryRef": "fact_invoice_line.Invoice Comparison Growth",
+              "nativeQueryRef": "Invoice Comparison Growth",
+              "displayName": "Invoice change vs 2010"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_invoice_line"
+                    }
+                  },
+                  "Property": "Cancellation 2011 Ratio"
+                }
+              },
+              "queryRef": "fact_invoice_line.Cancellation 2011 Ratio",
+              "nativeQueryRef": "Cancellation 2011 Ratio",
+              "displayName": "Cancelled / gross"
             }
           ]
         }
@@ -150,7 +214,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Five major markets | net sales change'"
+                  "Value": "'Markets driving the change | largest 6 movements'"
                 }
               }
             },
@@ -192,12 +256,68 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#26745B'"
+                      "Value": "'#65756B'"
                     }
                   }
                 }
               }
             }
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "FillRule": {
+                      "Input": {
+                        "SelectRef": {
+                          "ExpressionName": "fact_invoice_line.Net Change GBP"
+                        }
+                      },
+                      "FillRule": {
+                        "linearGradient2": {
+                          "min": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#C46635'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "0D"
+                              }
+                            }
+                          },
+                          "max": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#26745B'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "1D"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ]
           }
         }
       ],
@@ -278,6 +398,13 @@
               "expr": {
                 "Literal": {
                   "Value": "12D"
+                }
+              }
+            },
+            "labelPosition": {
+              "expr": {
+                "Literal": {
+                  "Value": "'OutsideEnd'"
                 }
               }
             }
@@ -383,81 +510,48 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "fd74017e3e9d5f78be77",
+        "name": "e6c18b6b804f559fadac",
         "field": {
-          "Column": {
+          "Measure": {
             "Expression": {
               "SourceRef": {
-                "Entity": "dim_country"
+                "Entity": "fact_invoice_line"
               }
             },
-            "Property": "country_key"
+            "Property": "Absolute Market Change Rank"
           }
         },
-        "type": "Categorical",
+        "type": "Advanced",
         "howCreated": "User",
         "filter": {
           "Version": 2,
           "From": [
             {
-              "Name": "d",
-              "Entity": "dim_country",
+              "Name": "f",
+              "Entity": "fact_invoice_line",
               "Type": 0
             }
           ],
           "Where": [
             {
               "Condition": {
-                "In": {
-                  "Expressions": [
-                    {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Source": "d"
-                          }
-                        },
-                        "Property": "country_key"
-                      }
+                "Comparison": {
+                  "ComparisonKind": 4,
+                  "Left": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "f"
+                        }
+                      },
+                      "Property": "Absolute Market Change Rank"
                     }
-                  ],
-                  "Values": [
-                    [
-                      {
-                        "Literal": {
-                          "Value": "'United Kingdom'"
-                        }
-                      }
-                    ],
-                    [
-                      {
-                        "Literal": {
-                          "Value": "'EIRE'"
-                        }
-                      }
-                    ],
-                    [
-                      {
-                        "Literal": {
-                          "Value": "'Netherlands'"
-                        }
-                      }
-                    ],
-                    [
-                      {
-                        "Literal": {
-                          "Value": "'Germany'"
-                        }
-                      }
-                    ],
-                    [
-                      {
-                        "Literal": {
-                          "Value": "'France'"
-                        }
-                      }
-                    ]
-                  ]
+                  },
+                  "Right": {
+                    "Literal": {
+                      "Value": "6L"
+                    }
+                  }
                 }
               }
             }

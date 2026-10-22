@@ -6,8 +6,8 @@
     "y": 30,
     "width": 1100,
     "height": 67,
-    "z": 29,
-    "tabOrder": 29
+    "z": 42,
+    "tabOrder": 42
   },
   "visual": {
     "visualType": "textbox",
@@ -86,7 +86,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Customer return",
+                    "value": "How concentrated is customer value?",
                     "textStyle": {
                       "fontFamily": "Segoe UI Semibold",
                       "fontSize": "28pt",

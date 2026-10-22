@@ -6,8 +6,8 @@
     "y": 158,
     "width": 496,
     "height": 118,
-    "z": 48,
-    "tabOrder": 48
+    "z": 74,
+    "tabOrder": 74
   },
   "visual": {
     "visualType": "card",
@@ -113,7 +113,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Cancellation postings'"
+                  "Value": "'Cancellation postings | 2011'"
                 }
               }
             },

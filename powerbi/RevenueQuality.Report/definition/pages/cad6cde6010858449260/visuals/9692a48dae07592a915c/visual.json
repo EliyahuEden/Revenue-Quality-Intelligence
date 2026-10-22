@@ -6,8 +6,8 @@
     "y": 111,
     "width": 1536,
     "height": 40.0,
-    "z": 43,
-    "tabOrder": 43
+    "z": 69,
+    "tabOrder": 69
   },
   "visual": {
     "visualType": "textbox",
@@ -86,7 +86,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "JAN-NOV 2011  /  select a product bar to investigate  /  GBP",
+                    "value": "JAN-NOV 2011 vs JAN-NOV 2010  /  GBP change  /  select or hover a product for detail",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
                       "fontSize": "12pt",

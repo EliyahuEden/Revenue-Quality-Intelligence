@@ -1,46 +1,39 @@
-# Reading the updated management dashboard
+# Reading the research-based Power BI report
 
-The Overview, Products and Sales quality pages now use **January-November 2011**. Comparisons use the same eleven months in 2010. This is different from the full two-year totals in the original study guide. December 2011 is incomplete and is excluded. The Customers page remains a full-history snapshot as of 1 December 2011; its simplified grid shows 2011 first-purchase groups and the next six calendar months.
+The report has six pages. Executive, Markets, Products and Cancellations compare **Jan-Nov 2011 with Jan-Nov 2010**. Customer Value and Repeat Buying use a **fixed 1 December 2011 snapshot** of the available Dec 2009-Nov 2011 history. Page-local market selections do not filter the disconnected historical customer snapshots.
 
-## The overview in 30 seconds
+## 1. Executive: growth and its drivers
 
-| Metric | Jan-Nov 2011 | Comparison with Jan-Nov 2010 |
-|---|---:|---:|
-| Net merchandise value | GBP 8,590,689.43 | +2.2% |
-| Sale invoices | 17,407 | -3.7% |
-| Average gross value per invoice | GBP 510.01 | +6.9% |
-| Cancellation value / gross sales | 3.2% | +0.7 percentage points |
+Net merchandise value is GBP 8.59M, up 2.2%. Sale invoices are 17.4K, down 3.7%. Gross value per invoice is GBP 510, up 6.9%. Cancellation postings are 3.2% of gross, up 0.7 percentage points.
 
-Sales value grew modestly while invoice volume fell. Higher average gross invoice value accompanied the increase. Cancellation postings consumed a larger share of gross sales. These observations identify questions to investigate; they do not prove that pricing changes, promotions or a particular customer group caused them. Invoice count is not a measure of website traffic or customer purchase frequency by itself.
+The monthly chart compares the same months, not incomplete calendar years. The driver bars explain the arithmetic behind the GBP 184K net increase: roughly -GBP 320K from invoice count, +GBP 570K from gross value per invoice, and -GBP 66K from increased cancellation value. These components reconcile; they do not establish causal effects or a pure pricing effect. The overview shows the six largest absolute market movements and the monthly cancellation-value ratio.
 
-The two-year line chart compares the same months. Green is 2011 and muted gray-green is 2010. The cancellation chart uses orange for 2011. The market chart shows **absolute net sales change in GBP**, not percentage growth, for a fixed list of five historically major markets. Left of zero means lower net sales. The product chart ranks products by 2011 net merchandise value. Market filtering recalculates the figures and rankings; the five-market comparison list stays fixed. Click blank canvas to clear a chart selection. The page tabs lead to details.
+## 2. Markets: materiality and growth
 
-Gross sales are before cancellation postings. Net merchandise value equals gross minus those postings. Average gross per invoice equals gross sales divided by distinct sale invoices. This does not establish profit or the effect of a campaign. The cancellation ratio is a value ratio, not a matched physical return rate. No target or profit data exists, so the report shows direction relative to last year rather than an invented overall health score.
+The left chart shows the eight largest absolute changes in net value across all markets. Positive values are gains; negative values are declines. The table adds their 2011 net value and percentage change. **The table total covers only those eight markets**, not the entire company. Hover a market to compare both years and invoice growth. A percentage is blank if the 2010 net denominator is zero. The UK card describes its share of 2011 gross sales, not growth.
 
-## Customers
+## 3. Customer Value: dependence and account review
 
-The 41.3% card is 1,458 eligible buyers purchasing again within 90 days divided by 3,533 buyers with fair follow-up. The 5,824 identified buyers card describes the full historical population. These populations are different.
+The top 583 of 5,824 identified buyers generated 63.5% of identified-buyer historical gross. The concentration curve ranks buyers from highest to lowest historical gross. Its x-axis is the cumulative share of buyers; its y-axis is their cumulative share of gross. The diagonal is an equal-share reference, not a target.
 
-Each cohort row is a first-observed-purchase month in 2011. Column 1 is the next calendar month, not the first purchase month. January 2011 / column 1 is 12 returning buyers divided by 72 original buyers = 16.7%. Each later column uses that original group's size. Customers can return after skipping a month; the percentages are not cumulative and should not be added. Darker cells mean more purchased. Blank cells mean the later month was not observed. November has no later observable month and therefore no visible row. The six-column view is a presentation choice; the complete cohort source remains available.
+There are 536 established dormant buyers with GBP 1.73M in historical gross purchases. Established means at least five invoices; dormant means the last purchase was more than 90 days before the snapshot. Their past purchases justify account research; they are not forecast recoverable revenue. The adjacent bar chart compares historical gross across customer groups. Hover to see buyer counts and gross shares.
 
-Customer groups remain full-history segments. Developing repeat means 2-4 invoices. Established means at least five, split into active (last purchase within 90 days) and dormant (more than 90 days). Single-purchase customers are split into recent first purchase and dormant using the same recency rule. A dormant label is a working definition, not proof of permanent loss.
+## 4. Repeat Buying: two different time questions
 
-## Products and sales quality
+The headline rate is 1,458 of 3,533 eligible buyers purchasing again within 90 days: 41.3%. The population includes all eligible historical cohorts, with a warmup and a full 90-day follow-up.
 
-Product charts compare the leading ten products' net sales and cancellation value. The cancellation chart is limited to those top-selling products; it is not an all-product cancellation ranking. Short product labels improve reading; the source retains original descriptions and codes.
+The grid instead measures purchasing in a particular later calendar month for each 2011 first-observed cohort. M+1 means the next calendar month. January 2011 / M+1 is 12 of 72 original buyers = 16.7%. Percentages are not cumulative, do not need to decrease, and must not be added. Darker cells mean more buyers returned; blanks are not yet observable. The adjacent chart compares the 90-day rate for fully observed January-August 2011 cohorts; hover for sample sizes. Differences between cohorts are descriptive, not proof of an intervention effect.
 
-Sales quality reconciles GBP 8.88M gross minus GBP 287.0K cancellation postings to GBP 8.59M net. Its monthly chart compares cancellation values with 2010. In 2011, 13.5% of gross sales lacked a customer ID. Such sales remain in financial totals but cannot be assigned to customer cohorts. The duplicate-policy sensitivity is GBP 18.2K in this period; this is a scenario difference, not a verified correction or saving.
+## 5. Products: winners and declines
 
-## Management priorities
+The charts rank six products with the largest monetary gains and six with the largest declines in net value. A current sales leader can still be declining. Hover for SKU, original description, both years, cancellation ratio and whether sales exist in both comparison windows. No 2010 sales is not automatically proof of a newly launched product. Product-axis labels include SKU to keep the analytical grain unique.
 
-1. Review dormant and lost purchasing accounts because invoice count fell. Determine which accounts and purchasing patterns explain the change before proposing an intervention.
-2. Investigate cancellation reasons and original-invoice links because the cancellation ratio increased. Do not assume every posting represents a returned product.
-3. Improve stable customer identity capture because anonymous sales limit customer analysis. Preserve unknown sales in financial reporting.
+## 6. Cancellations: posting exposure
 
-These are proposed actions. A real intervention would need an owner, operational data and an evaluation plan. The project does not claim realized commercial uplift.
+The 2011 cancellation posting value is GBP 287.0K. The monthly comparison reveals timing; the product chart considers the entire assortment and ranks the six largest posting values. SKU 23166 has GBP 77.5K in postings and deserves investigation. Posted cancellations are not reliably matched to the original sale, so the ratio is not a matched physical-return rate.
 
-## Theme and evidence
+## Definitions and limits
 
-The Forest and Linen theme uses deep green, warm cream and restrained orange with Segoe UI. It is a custom portfolio identity. UCI's source does not name the retailer, so this is not represented as its official brand: https://archive.ics.uci.edu/dataset/502/online%2Bretail%2Bii
+Gross merchandise sales are included positive merchandise sale lines. Net merchandise value is gross minus qualifying cancellation postings. Gross value per invoice is gross divided by distinct sale invoices. It is not profit. Cancellation values are shown as positive reductions. Missing customer IDs stay in finance totals and are excluded from identity-based analysis. No website traffic, costs, marketing spend, stock balances or approved targets are supplied.
 
-The model contains 45 DAX measures: 25 analytical measures plus 20 comparison and ranking measures. Native Desktop validation covers 684 manager metric comparisons, 135 cohort numerator/denominator/rate comparisons and 36 existing financial comparisons. All passed. All 10 Python tests passed. The conditional-cohort denominator was simplified to sum one cohort size per selected cohort/age; the cohort-age source key is unique. No total across different cohort ages is shown.
+See [the research and decision rationale](dashboard_research.md) for management questions, nine primary guidance sources, data limitations and the exact growth-decomposition convention.

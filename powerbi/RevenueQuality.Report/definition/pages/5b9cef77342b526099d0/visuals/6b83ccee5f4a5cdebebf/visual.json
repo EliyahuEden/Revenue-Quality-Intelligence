@@ -86,7 +86,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "JAN-NOV 2011  /  compared with Jan-Nov 2010  /  GBP",
+                    "value": "JAN-NOV 2011 vs JAN-NOV 2010  /  GBP  /  select a market to investigate",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
                       "fontSize": "12pt",

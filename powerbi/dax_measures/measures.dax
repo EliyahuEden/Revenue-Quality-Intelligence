@@ -150,3 +150,83 @@ CALCULATE ( [Duplicate Sensitivity GBP], REMOVEFILTERS ( dim_date[calendar_year]
 
 Product Net 2011 Rank =
 RANKX ( ALLSELECTED ( dim_product ), [Net 2011 GBP], , DESC, DENSE )
+
+// Decision-led analysis: signed change contributions and customer concentration.
+
+Invoice Volume Effect GBP =
+( [Invoices 2011] - [Invoices 2010] ) * [Basket 2010 GBP]
+
+Invoice Value Effect GBP =
+[Invoices 2011] * ( [Basket 2011 GBP] - [Basket 2010 GBP] )
+
+Cancellation Effect GBP =
+[Cancellations 2010 GBP] - [Cancellations 2011 GBP]
+
+Driver Contribution GBP =
+SWITCH ( SELECTEDVALUE ( growth_driver[driver] ), "Invoices", [Invoice Volume Effect GBP], "Gross / invoice", [Invoice Value Effect GBP], "Cancellations", [Cancellation Effect GBP] )
+
+Driver Gain GBP =
+IF ( [Driver Contribution GBP] >= 0, [Driver Contribution GBP] )
+
+Driver Decline GBP =
+IF ( [Driver Contribution GBP] < 0, [Driver Contribution GBP] )
+
+Bridge Check GBP =
+[Invoice Volume Effect GBP] + [Invoice Value Effect GBP] + [Cancellation Effect GBP] - [Net Change GBP]
+
+Absolute Market Change Rank =
+RANKX ( ALLSELECTED ( dim_country[country_key] ), ABS ( [Net Change GBP] ), , DESC, DENSE )
+
+Net Gain GBP =
+IF ( [Net Change GBP] > 0, [Net Change GBP] )
+
+Net Decline GBP =
+IF ( [Net Change GBP] < 0, [Net Change GBP] )
+
+UK Gross 2011 Share =
+DIVIDE ( CALCULATE ( [Gross 2011 GBP], REMOVEFILTERS ( dim_country ), dim_country[country_key] = "United Kingdom" ), CALCULATE ( [Gross 2011 GBP], REMOVEFILTERS ( dim_country ) ) )
+
+Product Gain Rank =
+IF ( [Net Change GBP] > 0, RANKX ( ALLSELECTED ( dim_product ), [Net Change GBP], , DESC, DENSE ), 1000000 )
+
+Product Decline Rank =
+IF ( [Net Change GBP] < 0, RANKX ( ALLSELECTED ( dim_product ), [Net Change GBP], , ASC, DENSE ), 1000000 )
+
+Product Cancellation Rank =
+IF ( [Cancellations 2011 GBP] > 0, RANKX ( ALLSELECTED ( dim_product ), [Cancellations 2011 GBP], , DESC, DENSE ), 1000000 )
+
+Product Comparison Title =
+SWITCH ( TRUE (), COALESCE ( [Gross 2010 GBP], 0 ) = 0 && [Gross 2011 GBP] > 0, "No sales in 2010 comparison window", COALESCE ( [Gross 2011 GBP], 0 ) = 0 && [Gross 2010 GBP] > 0, "No sales in 2011 comparison window", "Sales observed in both comparison windows" )
+
+Top Decile Gross Share =
+VAR BuyerCount = COUNTROWS ( ALL ( customer_segments ) )
+VAR BuyerLimit = ROUNDUP ( BuyerCount * 0.1, 0 )
+VAR RankedGross = SUMX ( TOPN ( BuyerLimit, ALL ( customer_segments ), customer_segments[gross_pence], DESC, customer_segments[customer_key], ASC ), customer_segments[gross_pence] )
+RETURN DIVIDE ( RankedGross, CALCULATE ( SUM ( customer_segments[gross_pence] ), REMOVEFILTERS ( customer_segments ) ) )
+
+Established Dormant Buyers =
+CALCULATE ( [Snapshot Customers], customer_segments[segment] = "Established dormant" )
+
+Established Dormant Gross GBP =
+CALCULATE ( [Snapshot Gross GBP], customer_segments[segment] = "Established dormant" )
+
+Cumulative Customer Gross Share =
+VAR Fraction = SELECTEDVALUE ( customer_percentile[buyer_share] )
+VAR BuyerLimit = ROUNDUP ( COUNTROWS ( ALL ( customer_segments ) ) * Fraction, 0 )
+VAR RankedGross = SUMX ( TOPN ( BuyerLimit, ALL ( customer_segments ), customer_segments[gross_pence], DESC, customer_segments[customer_key], ASC ), customer_segments[gross_pence] )
+RETURN IF ( NOT ISBLANK ( Fraction ), DIVIDE ( RankedGross, CALCULATE ( SUM ( customer_segments[gross_pence] ), REMOVEFILTERS ( customer_segments ) ) ) )
+
+Equal Customer Share Reference =
+SELECTEDVALUE ( customer_percentile[buyer_share] )
+
+Segment Gross Share =
+DIVIDE ( [Snapshot Gross GBP], CALCULATE ( [Snapshot Gross GBP], REMOVEFILTERS ( customer_segments[segment] ) ) )
+
+Sales Trend Title =
+"Net value " & FORMAT ( [Net Comparison Growth], "+0.0%;-0.0%;0.0%" ) & " vs 2010 | monthly GBP"
+
+Product SKU Title =
+SELECTEDVALUE ( dim_product[product_key], "Multiple SKUs" )
+
+Product Description Title =
+SELECTEDVALUE ( dim_product[product_name], "Multiple descriptions" )

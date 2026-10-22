@@ -6,8 +6,8 @@
     "y": 858,
     "width": 110,
     "height": 40.0,
-    "z": 72,
-    "tabOrder": 72
+    "z": 33,
+    "tabOrder": 33
   },
   "visual": {
     "visualType": "textbox",
@@ -86,7 +86,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "05 / 05",
+                    "value": "02 / 06",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
                       "fontSize": "12pt",

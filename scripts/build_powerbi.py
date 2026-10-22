@@ -31,6 +31,7 @@ for name in names:
  fields=[]
  for col,typ in cols:
   field={'name':col,'dataType':dtype(typ),'sourceColumn':col,'summarizeBy':'none','lineageTag':str(uuid.uuid5(uuid.NAMESPACE_URL,name+'.'+col))}
+  if name=='cohort_retention' and col=='month_age':field['formatString']='"M+"0'
   if typ=='DATE':field['formatString']='MMM yyyy' if col in ['month_start','cohort_month','activity_month'] else 'dd MMM yyyy'
   if name=='dim_date' and col=='date_key':field['isKey']=True
   if name=='fact_invoice_line' and col in ['customer_key','date_key','country_key','product_key','amount_pence','quantity','unit_price']:field['isHidden']=True
@@ -43,11 +44,14 @@ for name in names:
  if name=='fact_order':table['isHidden']=True
  if name=='dim_date':
   table['columns'].append({'name':'Month','dataType':'string','type':'calculated','expression':'FORMAT ( dim_date[date_key], "MMM" )','sortByColumn':'month_number','summarizeBy':'none'})
+ if name=='customer_lifecycle':
+  table['columns'].append({'name':'Review cohort','dataType':'int64','type':'calculated','expression':'IF ( YEAR ( customer_lifecycle[cohort_month] ) = 2011 && MONTH ( customer_lifecycle[cohort_month] ) <= 8, 1, 0 )','summarizeBy':'none'})
  if name=='cohort_retention':
   table['columns'].append({'name':'Cohort Year','dataType':'int64','type':'calculated','expression':'YEAR ( cohort_retention[cohort_month] )','summarizeBy':'none'})
  if name=='dim_product':
   labels={'22423':'Regency cake stand','47566':'Party bunting','85123A':'Cream heart tealight','85099B':'Red retrospot jumbo bag','23084':'Rabbit night light','84879':'Bird ornaments','22502':'Small wicker picnic basket','22086':'Christmas paper chains','79321':'Chilli lights','22197':'Popcorn holder'}
-  expression='SWITCH ( dim_product[product_key], '+', '.join('"'+k+'", "'+v+'"' for k,v in labels.items())+', dim_product[product_name] )'
+  labels.update({'23298': 'Spotty bunting', '23203': 'Vintage doily jumbo bag', '23284': 'Keep calm doormat', '84347': 'Silver angel tealight', '37503': 'Gift-box cake stand', '21843': 'Red retrospot cake stand', '48138': 'Union flag doormat', '23166': 'Ceramic storage jar', '21108': 'Fairy cake flannel', '23113': 'Pantry chopping board', '48185': 'Fairy cake doormat'})
+  expression='SWITCH ( dim_product[product_key], '+', '.join('"'+k+'", "'+v+'"' for k,v in labels.items())+', LEFT ( dim_product[product_name], 25 ) ) & " | " & dim_product[product_key]'
   table['columns'].append({'name':'Product label','dataType':'string','type':'calculated','expression':expression,'summarizeBy':'none'})
  tables.append(table)
 text=(P/'dax_measures/measures.dax').read_text(encoding='utf-8');text=re.sub(r'(?m)^//.*\n?','',text)
@@ -57,11 +61,21 @@ for i,m in enumerate(matches):
  fmt='0.0%' if any(x in name for x in ['Ratio','Share','Rate','Growth']) else '£#,0.00;(£#,0.00)' if 'GBP' in name else '#,0'
  measure={'name':name,'expression':expression.splitlines(),'formatString':fmt,'displayFolder':'Financial performance' if any(x in name for x in ['GBP','Invoices','Ratio','Share']) else 'Customer continuity'}
  if 'Title' in name:measure.pop('formatString')
+ if name=='Equal Customer Share Reference':measure['formatString']='0%'
+ if name in ['Net Change GBP','Invoice Volume Effect GBP','Invoice Value Effect GBP','Cancellation Effect GBP','Driver Contribution GBP','Driver Gain GBP','Driver Decline GBP','Net Gain GBP','Net Decline GBP']:measure['formatString']='+£#,0.00;-£#,0.00;£0.00'
  if name in ['Net Comparison Growth','Invoice Comparison Growth','Basket Comparison Growth']:measure['formatString']='+0.0%;-0.0%;0.0%'
  if name=='Cancellation Change Points':measure['formatString']='+0.0" pp";-0.0" pp";0.0" pp"'
  measures.append(measure)
-assert len(measures)==45 and all(not m['name'].startswith('VAR ') and m['expression'] for m in measures), 'Invalid DAX source parsing'
+assert len(measures)==69 and all(not m['name'].startswith('VAR ') and m['expression'] for m in measures), 'Invalid DAX source parsing'
 tables[names.index('fact_invoice_line')]['measures']=measures
+
+# Small disconnected axes support a transparent arithmetic bridge and a Pareto curve.
+for tab,cols,dax in [
+ ('growth_driver',[('driver','string'),('sort','int64')],'DATATABLE ( "driver", STRING, "sort", INTEGER, { { "Invoices", 1 }, { "Gross / invoice", 2 }, { "Cancellations", 3 } } )'),
+ ('customer_percentile',[('buyer_share','double')],'DATATABLE ( "buyer_share", DOUBLE, { { 0.1 }, { 0.2 }, { 0.3 }, { 0.4 }, { 0.5 }, { 0.6 }, { 0.7 }, { 0.8 }, { 0.9 }, { 1.0 } } )')]:
+ axiscols=[{'name':n,'dataType':dt,'type':'calculatedTableColumn','sourceColumn':'['+n+']','summarizeBy':'none',**({'formatString':'0%'} if n=='buyer_share' else {}),**({'sortByColumn':'sort'} if n=='driver' else {})} for n,dt in cols]
+ tables.append({'name':tab,'columns':axiscols,'partitions':[{'name':tab,'mode':'import','source':{'type':'calculated','expression':dax}}]})
+
 relationships=[]
 for fact in ['fact_invoice_line','fact_order']:
  for dim,col in [('dim_date','date_key'),('dim_customer','customer_key'),('dim_country','country_key')]:

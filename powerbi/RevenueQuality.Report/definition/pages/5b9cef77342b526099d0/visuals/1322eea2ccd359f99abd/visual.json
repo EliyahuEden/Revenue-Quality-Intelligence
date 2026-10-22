@@ -113,7 +113,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Average gross / invoice'"
+                  "Value": "'Gross value per invoice'"
                 }
               }
             },

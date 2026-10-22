@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "1b5d025b52e8557b9f30",
   "position": {
-    "x": 1024,
-    "y": 304,
-    "width": 544,
-    "height": 265,
-    "z": 24,
-    "tabOrder": 24
+    "x": 968,
+    "y": 603,
+    "width": 600,
+    "height": 224,
+    "z": 26,
+    "tabOrder": 26
   },
   "visual": {
     "visualType": "clusteredColumnChart",
@@ -165,7 +165,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Cancellation value / gross'"
+                  "Value": "'Is cancellation value taking a larger sales share?'"
                 }
               }
             },
@@ -314,6 +314,13 @@
               "expr": {
                 "Literal": {
                   "Value": "12D"
+                }
+              }
+            },
+            "labelPosition": {
+              "expr": {
+                "Literal": {
+                  "Value": "'OutsideEnd'"
                 }
               }
             }

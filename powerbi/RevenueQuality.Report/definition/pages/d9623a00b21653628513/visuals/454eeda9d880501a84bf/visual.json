@@ -6,8 +6,8 @@
     "y": 111,
     "width": 1536,
     "height": 40.0,
-    "z": 70,
-    "tabOrder": 70
+    "z": 31,
+    "tabOrder": 31
   },
   "visual": {
     "visualType": "textbox",
@@ -86,7 +86,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "ACTION QUEUE  /  based on observed patterns  /  proposed actions, not achieved outcomes",
+                    "value": "JAN-NOV 2011 vs JAN-NOV 2010  /  all markets  /  eight largest absolute changes shown",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
                       "fontSize": "12pt",
