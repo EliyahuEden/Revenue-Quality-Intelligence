@@ -5,7 +5,7 @@
     "x": 810,
     "y": 305,
     "width": 758,
-    "height": 514,
+    "height": 535,
     "z": 76,
     "tabOrder": 76
   },
@@ -244,7 +244,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Six biggest declines | change in net value'"
+                  "Value": "'Largest product declines \u00b7 GBP'"
                 }
               }
             },
@@ -419,13 +419,6 @@
                   "Value": "12D"
                 }
               }
-            },
-            "maxSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "55D"
-                }
-              }
             }
           }
         }
@@ -484,7 +477,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "f6b13278ee795e7e805d",
+        "name": "effad9e21a3d2d7a260b",
         "field": {
           "Measure": {
             "Expression": {

@@ -86,7 +86,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Where is cancellation value concentrated?",
+                    "value": "Cancellation exposure",
                     "textStyle": {
                       "fontFamily": "Segoe UI Semibold",
                       "fontSize": "28pt",

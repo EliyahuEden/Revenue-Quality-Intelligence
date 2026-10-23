@@ -1,0 +1,30 @@
+{
+  "name": "RevenueQualityTheme.json",
+  "dataColors": [
+    "#26745B",
+    "#A2B3A0",
+    "#C46635",
+    "#D7AE83",
+    "#668D7D"
+  ],
+  "background": "#F3F1E9",
+  "foreground": "#243D35",
+  "tableAccent": "#26745B",
+  "textClasses": {
+    "title": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 15,
+      "color": "#243D35"
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "fontSize": 12,
+      "color": "#65756B"
+    },
+    "callout": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 38,
+      "color": "#173F35"
+    }
+  }
+}

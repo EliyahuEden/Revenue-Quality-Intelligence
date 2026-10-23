@@ -5,7 +5,7 @@
     "x": 32,
     "y": 305,
     "width": 850,
-    "height": 514,
+    "height": 535,
     "z": 37,
     "tabOrder": 37
   },
@@ -214,7 +214,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Net-value change by market | GBP'"
+                  "Value": "'Net value change by market \u00b7 GBP'"
                 }
               }
             },
@@ -445,13 +445,6 @@
                   "Value": "12D"
                 }
               }
-            },
-            "maxSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "55D"
-                }
-              }
             }
           }
         }
@@ -510,7 +503,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "d6734cd3c4cd5546bd29",
+        "name": "1211a001a86fc5c597ae",
         "field": {
           "Measure": {
             "Expression": {

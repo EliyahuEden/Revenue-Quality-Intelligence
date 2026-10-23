@@ -5,7 +5,7 @@
     "x": 904,
     "y": 305,
     "width": 664,
-    "height": 514,
+    "height": 535,
     "z": 89,
     "tabOrder": 89
   },
@@ -244,7 +244,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Products with the most cancellation value | top 6'"
+                  "Value": "'Top products \u00b7 cancellation value'"
                 }
               }
             },
@@ -419,13 +419,6 @@
                   "Value": "12D"
                 }
               }
-            },
-            "maxSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "55D"
-                }
-              }
             }
           }
         }
@@ -484,7 +477,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "2b9bd6fbcac45ca285b3",
+        "name": "1b2ab124a1559a043f30",
         "field": {
           "Measure": {
             "Expression": {

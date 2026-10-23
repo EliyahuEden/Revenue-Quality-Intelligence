@@ -366,13 +366,6 @@
                   "Value": "12D"
                 }
               }
-            },
-            "maxSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "55D"
-                }
-              }
             }
           }
         }
@@ -431,7 +424,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "ed7236a683eb5f9d8c9a",
+        "name": "af2b7b152d4ec8580779",
         "field": {
           "Column": {
             "Expression": {

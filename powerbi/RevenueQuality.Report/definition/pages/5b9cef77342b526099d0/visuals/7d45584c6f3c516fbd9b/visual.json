@@ -150,7 +150,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'What changed net value? | GBP contribution'"
+                  "Value": "'Net value change \u00b7 GBP'"
                 }
               }
             },
@@ -379,13 +379,6 @@
               "expr": {
                 "Literal": {
                   "Value": "12D"
-                }
-              }
-            },
-            "maxSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "55D"
                 }
               }
             }

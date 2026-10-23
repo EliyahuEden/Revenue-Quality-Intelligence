@@ -5,7 +5,7 @@
     "x": 32,
     "y": 603,
     "width": 914,
-    "height": 224,
+    "height": 245,
     "z": 25,
     "tabOrder": 25
   },
@@ -214,7 +214,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Markets driving the change | largest 6 movements'"
+                  "Value": "'Market contribution \u00b7 change in GBP'"
                 }
               }
             },
@@ -445,13 +445,6 @@
                   "Value": "12D"
                 }
               }
-            },
-            "maxSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "55D"
-                }
-              }
             }
           }
         }
@@ -510,7 +503,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "e6c18b6b804f559fadac",
+        "name": "50fe2dbe9cfbc984d373",
         "field": {
           "Measure": {
             "Expression": {

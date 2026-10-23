@@ -5,7 +5,7 @@
     "x": 32,
     "y": 305,
     "width": 756,
-    "height": 514,
+    "height": 535,
     "z": 75,
     "tabOrder": 75
   },
@@ -244,7 +244,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Six biggest gains | change in net value'"
+                  "Value": "'Largest product gains \u00b7 GBP'"
                 }
               }
             },
@@ -419,13 +419,6 @@
                   "Value": "12D"
                 }
               }
-            },
-            "maxSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "55D"
-                }
-              }
             }
           }
         }
@@ -484,7 +477,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "9f8d7df5cfdd5d749a56",
+        "name": "8c22b8bc1d2d0fff9fad",
         "field": {
           "Measure": {
             "Expression": {

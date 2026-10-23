@@ -5,7 +5,7 @@
     "x": 904,
     "y": 305,
     "width": 664,
-    "height": 475,
+    "height": 535,
     "z": 63,
     "tabOrder": 63
   },
@@ -184,7 +184,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'90-day repeat rate | fully observed Jan-Aug 2011 cohorts'"
+                  "Value": "'90-day repeat rate \u00b7 Jan\u2013Aug cohorts'"
                 }
               }
             },
@@ -359,13 +359,6 @@
                   "Value": "12D"
                 }
               }
-            },
-            "maxSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "55D"
-                }
-              }
             }
           }
         }
@@ -438,7 +431,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "c2fde260fdca5d3cbbc5",
+        "name": "28025dd96f69e0e69193",
         "field": {
           "Column": {
             "Expression": {

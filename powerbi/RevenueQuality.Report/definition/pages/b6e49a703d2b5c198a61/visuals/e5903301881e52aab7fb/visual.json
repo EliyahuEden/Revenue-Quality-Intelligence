@@ -5,7 +5,7 @@
     "x": 32,
     "y": 305,
     "width": 850,
-    "height": 475,
+    "height": 535,
     "z": 62,
     "tabOrder": 62
   },
@@ -151,7 +151,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'2011 cohorts | % buying 1-6 months after first purchase'"
+                  "Value": "'Repeat purchasing \u00b7 monthly cohort %'"
                 }
               }
             },
@@ -374,32 +374,6 @@
           }
         }
       ],
-      "rowTotal": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "columnTotal": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
-        }
-      ],
       "grid": [
         {
           "properties": {
@@ -415,15 +389,7 @@
       ],
       "general": [
         {
-          "properties": {
-            "autoSizeColumnWidth": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
+          "properties": {}
         }
       ],
       "columnWidth": [
@@ -447,7 +413,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "05355f0b42fc50acbd9d",
+        "name": "a4e4f50e7c07195ecb6e",
         "field": {
           "Column": {
             "Expression": {
@@ -501,7 +467,7 @@
         }
       },
       {
-        "name": "22e1e074c1f350c0b379",
+        "name": "6617992a324ea8b1ebcb",
         "field": {
           "Column": {
             "Expression": {

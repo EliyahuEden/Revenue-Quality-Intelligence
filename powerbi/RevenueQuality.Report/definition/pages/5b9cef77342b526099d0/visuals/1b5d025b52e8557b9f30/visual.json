@@ -5,7 +5,7 @@
     "x": 968,
     "y": 603,
     "width": 600,
-    "height": 224,
+    "height": 245,
     "z": 26,
     "tabOrder": 26
   },
@@ -165,7 +165,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Is cancellation value taking a larger sales share?'"
+                  "Value": "'Cancellation value / gross sales'"
                 }
               }
             },
@@ -361,13 +361,6 @@
                   "Value": "12D"
                 }
               }
-            },
-            "maxSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "55D"
-                }
-              }
             }
           }
         }
@@ -426,7 +419,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "ed7236a683eb5f9d8c9a",
+        "name": "68e1e6ab4b944ac93b9e",
         "field": {
           "Column": {
             "Expression": {

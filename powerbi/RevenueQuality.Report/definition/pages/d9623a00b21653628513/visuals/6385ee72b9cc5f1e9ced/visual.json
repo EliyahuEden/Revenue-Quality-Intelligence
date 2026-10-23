@@ -5,7 +5,7 @@
     "x": 904,
     "y": 305,
     "width": 664,
-    "height": 514,
+    "height": 535,
     "z": 38,
     "tabOrder": 38
   },
@@ -176,7 +176,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Scale and growth | same eight markets'"
+                  "Value": "'Market performance'"
                 }
               }
             },
@@ -272,7 +272,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "d6734cd3c4cd5546bd29",
+        "name": "7a218871f3b60e9ffee8",
         "field": {
           "Measure": {
             "Expression": {

@@ -86,7 +86,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "How concentrated is customer value?",
+                    "value": "Customer value",
                     "textStyle": {
                       "fontFamily": "Segoe UI Semibold",
                       "fontSize": "28pt",

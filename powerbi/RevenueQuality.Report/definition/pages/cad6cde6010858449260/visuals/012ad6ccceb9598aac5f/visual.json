@@ -86,7 +86,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Which products gained or lost sales?",
+                    "value": "Product performance",
                     "textStyle": {
                       "fontFamily": "Segoe UI Semibold",
                       "fontSize": "28pt",

@@ -5,7 +5,7 @@
     "x": 32,
     "y": 305,
     "width": 750,
-    "height": 475,
+    "height": 535,
     "z": 49,
     "tabOrder": 49
   },
@@ -165,7 +165,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Biggest buyers: buyer share vs gross-value share'"
+                  "Value": "'Customer concentration'"
                 }
               }
             },
@@ -359,13 +359,6 @@
               "expr": {
                 "Literal": {
                   "Value": "12D"
-                }
-              }
-            },
-            "maxSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "55D"
                 }
               }
             }
